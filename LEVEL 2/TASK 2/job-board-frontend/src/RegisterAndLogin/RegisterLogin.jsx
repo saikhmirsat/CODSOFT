@@ -1,5 +1,308 @@
-import React from "react";
+import React, { useState } from "react";
+import "./RegisterLogin.css";
+import { IoLogoFacebook } from "react-icons/io";
+import { ImGooglePlus3 } from "react-icons/im";
+import { BiLogoLinkedin } from "react-icons/bi";
 
 export default function RegisterLogin() {
-  return <div>RegisterLogin</div>;
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [mobile, setMobile] = useState(null);
+  const [role, setRole] = useState("");
+
+  const [LoginEmail, setLoginEmail] = useState("");
+  const [LoginPassword, setLoginPassword] = useState("");
+
+  const [loginForm, setLoginForm] = useState(true);
+  const [registeForm, setRegisterForm] = useState(false);
+
+  const RegisterFunc = (e) => {
+    e.preventDefault();
+    const obj = {
+      name,
+      email,
+      password,
+      mobile,
+      role,
+    };
+
+    console.log(obj);
+  };
+
+  const LoginFunc = (e) => {
+    e.preventDefault();
+    const obj = {
+      email: LoginEmail,
+      password: LoginPassword,
+    };
+    console.log(obj);
+  };
+
+  const handleSignUpClick = () => {
+    setIsSignUp(true);
+  };
+
+  const handleSignInClick = () => {
+    setIsSignUp(false);
+  };
+  return (
+    <div className="main_box_of_login">
+      <h2>Sign in/up </h2>
+      <div
+        id="for_desktop_signup_login"
+        className={`container ${isSignUp ? "right-panel-active" : ""}`}
+      >
+        <div className="form-container sign-up-container">
+          <form action="#" onSubmit={RegisterFunc}>
+            <h1>Create Account</h1>
+            <div className="social-container">
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <IoLogoFacebook size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <ImGooglePlus3 size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <BiLogoLinkedin size="20px" color="#1e90ff" />
+              </a>
+            </div>
+            <span>Fill your personal info</span>
+            <select name="" id="" onChange={(e) => setRole(e.target.value)}>
+              <option value="">Choose here</option>
+              <option value="candidate">Register as Candidate</option>
+              <option value="employee">Register as Employee</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Mobile Number"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+        <div className="form-container sign-in-container">
+          <form action="#" onSubmit={LoginFunc}>
+            <h1>Sign in</h1>
+            <div className="social-container">
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <IoLogoFacebook size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <ImGooglePlus3 size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <BiLogoLinkedin size="20px" color="#1e90ff" />
+              </a>
+            </div>
+            <span>or use your account</span>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <a href="#">Forgot your password?</a>
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p>
+                To keep connected with us please login with your personal info
+              </p>
+              <button className="ghost" onClick={handleSignInClick}>
+                Sign In
+              </button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h1>Hello, Everyone!</h1>
+              <p>Enter your personal details and start journey with us</p>
+              <button className="ghost" onClick={handleSignUpClick}>
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="Mobile_signup_login">
+        <div className="login_signup_btn_div">
+          <button
+            onClick={() => {
+              setLoginForm(true);
+              setRegisterForm(false);
+            }}
+            className={
+              loginForm ? "swap_btn_signup_login" : "swap_btn_nocolour"
+            }
+          >
+            Login
+          </button>
+          <button
+            onClick={() => {
+              setLoginForm(false);
+              setRegisterForm(true);
+            }}
+            className={
+              registeForm ? "swap_btn_signup_login" : "swap_btn_nocolour"
+            }
+          >
+            Register
+          </button>
+        </div>
+        <div
+          className="login_form_container"
+          id={!loginForm ? "hide_Loginform" : ""}
+        >
+          <form action="#" onSubmit={LoginFunc}>
+            <div className="social-container">
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <IoLogoFacebook size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <ImGooglePlus3 size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <BiLogoLinkedin size="20px" color="#1e90ff" />
+              </a>
+            </div>
+            <span>or use your account</span>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setLoginPassword(e.target.value)}
+            />
+            <a className="forgetPassword_login" href="#">
+              Forgot your password?
+            </a>
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+        <div
+          className="login_form_container"
+          id={!registeForm ? "hide_registerForm" : ""}
+        >
+          <form action="#" onSubmit={RegisterFunc}>
+            <div className="social-container">
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <IoLogoFacebook size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <ImGooglePlus3 size="20px" color="#1e90ff" />
+              </a>
+              <a
+                href="#"
+                className="social"
+                style={{ border: "1px solid #1e90ff" }}
+              >
+                <BiLogoLinkedin size="20px" color="#1e90ff" />
+              </a>
+            </div>
+            <span>Fill your personal info</span>
+            <select name="" id="" onChange={(e) => setRole(e.target.value)}>
+              <option value="">Choose here</option>
+              <option value="candidate">Register as Candidate</option>
+              <option value="employee">Register as Employee</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Mobile Number"
+              onChange={(e) => setMobile(e.target.value)}
+            />
+            <button className="registerButn_submit" type="submit">
+              Sign Up
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }

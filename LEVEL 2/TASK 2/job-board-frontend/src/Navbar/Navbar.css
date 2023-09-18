@@ -10,7 +10,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  background-color: #1e90ff;
+  /* background-color: #1e90ff; */
+  background: -webkit-linear-gradient(to right, #1e90ff, #1755d1);
+  background: linear-gradient(to right, #1e90ff, #06439e);
 }
 .Nav_logo_con {
   text-align: left;
@@ -37,7 +39,7 @@
     display: none;
   }
   .Navbar_normal {
-    background-color: blue;
+    /* background-color: blue; */
   }
 }
 
@@ -50,9 +52,10 @@
     width: 100%;
   }
   .mobile_nav_container {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     padding: 10px;
-    background-color: blueviolet;
+    background: -webkit-linear-gradient(to right, #1e90ff, #1755d1);
+    background: linear-gradient(to right, #1e90ff, #06439e);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,26 +67,20 @@
     background-color: unset;
     border: none;
   }
-  .mobile_nav_items_hide {
+  .mobile_nav_items.hide {
     display: none;
   }
   .mobile_nav_items {
     display: flex;
     flex-direction: column;
-
     border: 1px solid rgb(10, 98, 109);
     position: absolute;
     right: 0px;
     width: 50%;
     background-color: white;
-    transform: translateX(100%);
-    transition: 0.5s ease-in-out;
     border-bottom-left-radius: 10px;
   }
 
-  .mobile_nav_items.show {
-    transform: translateX(0);
-  }
   .mobile_nav_items a {
     border-bottom: 1px solid grey;
     text-decoration: none;

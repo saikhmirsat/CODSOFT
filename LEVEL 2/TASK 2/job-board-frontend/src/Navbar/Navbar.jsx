@@ -12,6 +12,10 @@ export default function Navbar() {
     setHamburger(!hamburger);
   };
 
+  const closeHamburgerFunc = () => {
+    setHamburger(false);
+  };
+
   return (
     <div className="Navbar">
       <div className="Navbar_normal">
@@ -19,8 +23,8 @@ export default function Navbar() {
           <h2>Logo</h2>
         </div>
         <div className="Nav_right_items">
-          <a href="#">Jobs</a>
-          <a href="#">Job Applications</a>
+          <Link to="/joblistings">Jobs</Link>
+          <Link to="/jobapplications">Job Applications</Link>
           <Link to="/registerandlogin">Register & Login</Link>
         </div>
       </div>
@@ -40,11 +44,19 @@ export default function Navbar() {
           </div>
         </div>
         <div className={`mobile_nav_items ${hamburger ? "show" : "hide"}`}>
-          <a href="">Profile</a>
-          <a href="">Jobs</a>
-          <a href="" style={{ border: "non" }}>
+          <Link onClick={closeHamburgerFunc} to="/joblistings">
+            Jobs
+          </Link>
+          <Link onClick={closeHamburgerFunc} to="/jobapplications">
+            Job Applications
+          </Link>
+          <Link
+            onClick={closeHamburgerFunc}
+            style={{ border: "unset" }}
+            to="/registerandlogin"
+          >
             Register & Login
-          </a>
+          </Link>
         </div>
       </div>
     </div>
