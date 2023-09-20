@@ -19,7 +19,7 @@ export default function RegisterLogin() {
   const [loginForm, setLoginForm] = useState(true);
   const [registeForm, setRegisterForm] = useState(false);
 
-  const RegisterFunc = (e) => {
+  const RegisterFunc = async (e) => {
     e.preventDefault();
     const obj = {
       name,
@@ -29,16 +29,73 @@ export default function RegisterLogin() {
       role,
     };
 
-    console.log(obj);
+    try {
+      await fetch(`http://localhost:8080/users/register`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.success === true) {
+            alert(res.msg);
+            setIsSignUp(false);
+          } else {
+            alert(res.msg);
+          }
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
-  const LoginFunc = (e) => {
+  const LoginFunc = async (e) => {
     e.preventDefault();
     const obj = {
       email: LoginEmail,
       password: LoginPassword,
     };
-    console.log(obj);
+
+    try {
+      await fetch(`http://localhost:8080/users/login`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.success === true) {
+            alert(res.msg);
+
+            if (res.user[0].role == "candidate") {
+              console.log("candidate");
+              localStorage.setItem("isAuth", "candidate");
+              window.location.reload();
+            }
+            if (res.user[0].role == "employee") {
+              console.log("employee");
+              localStorage.setItem("isAuth", "employee");
+              window.location.reload();
+            }
+          } else {
+            alert(res.msg);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+      alert(err);
+    }
   };
 
   const handleSignUpClick = () => {

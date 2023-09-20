@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 export default function Navbar() {
   const [hamburger, setHamburger] = useState(false);
 
+  const isAuth = localStorage.getItem("isAuth");
+  console.log(isAuth);
+
   const toggleHamburger = () => {
     setHamburger(!hamburger);
   };
@@ -24,8 +27,24 @@ export default function Navbar() {
         </div>
         <div className="Nav_right_items">
           <Link to="/joblistings">Jobs</Link>
-          <Link to="/jobapplications">Job Applications</Link>
-          <Link to="/registerandlogin">Register & Login</Link>
+
+          {isAuth === "employee" ? (
+            <Link to="/employeejobpost">Post Jobs</Link>
+          ) : (
+            ""
+          )}
+          {isAuth === "candidate" ? (
+            <Link to="/jobapplications">Job Applications</Link>
+          ) : (
+            ""
+          )}
+          {isAuth === "employee" ? <Link to="/employee">Dashboard</Link> : ""}
+          {isAuth === "candidate" ? <Link to="/candidate">Dashboard</Link> : ""}
+          {isAuth === "candidate" || isAuth === "employee" ? (
+            ""
+          ) : (
+            <Link to="/registerandlogin">Register & Login</Link>
+          )}
         </div>
       </div>
       <div className="Navbar_mobile">
@@ -47,16 +66,47 @@ export default function Navbar() {
           <Link onClick={closeHamburgerFunc} to="/joblistings">
             Jobs
           </Link>
-          <Link onClick={closeHamburgerFunc} to="/jobapplications">
-            Job Applications
-          </Link>
-          <Link
-            onClick={closeHamburgerFunc}
-            style={{ border: "unset" }}
-            to="/registerandlogin"
-          >
-            Register & Login
-          </Link>
+
+          {isAuth === "employee" ? (
+            <Link onClick={closeHamburgerFunc} to="/employeejobpost">
+              Post Jobs
+            </Link>
+          ) : (
+            ""
+          )}
+          {isAuth === "candidate" ? (
+            <Link onClick={closeHamburgerFunc} to="/jobapplications">
+              Job Applications
+            </Link>
+          ) : (
+            ""
+          )}
+          {isAuth === "employee" ? (
+            <Link onClick={closeHamburgerFunc} to="/employee">
+              Dashboard
+            </Link>
+          ) : (
+            ""
+          )}
+          {isAuth === "candidate" ? (
+            <Link onClick={closeHamburgerFunc} to="/candidate">
+              Dashboard
+            </Link>
+          ) : (
+            ""
+          )}
+
+          {isAuth === "candidate" || isAuth === "employee" ? (
+            ""
+          ) : (
+            <Link
+              onClick={closeHamburgerFunc}
+              style={{ border: "unset" }}
+              to="/registerandlogin"
+            >
+              Register & Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

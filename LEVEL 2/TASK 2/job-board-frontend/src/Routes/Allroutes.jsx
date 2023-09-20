@@ -5,8 +5,12 @@ import RegisterLogin from "../RegisterAndLogin/RegisterLogin";
 import JobDetail from "../Pages/JobDetail";
 import JobListings from "../Pages/JobListings";
 import JobApplicationProcess from "../Pages/JobApplicationProcess";
+import CandidateDashboard from "../Pages/CandidateDashboard";
+import EmployeeDashboard from "../Pages/EmployeeDashboard";
+import EmployeePostJobs from "../Pages/EmployeePostJobs";
 
 export default function Allroutes() {
+  const isAuth = localStorage.getItem("isAuth");
   return (
     <Routes>
       <Route path="/" element={<Home />}></Route>
@@ -17,8 +21,9 @@ export default function Allroutes() {
         path="/jobapplications"
         element={<JobApplicationProcess />}
       ></Route>
-      <Route path="/candidate" element={<JobApplicationProcess />}></Route>
-      <Route path="/employee" element={<JobApplicationProcess />}></Route>
+      <Route path="/candidate" element={<CandidateDashboard />}></Route>
+      <Route path="/employee" element={<EmployeeDashboard />}></Route>
+      <Route path="/employeejobpost" element={<EmployeePostJobs />}></Route>
     </Routes>
   );
 }
