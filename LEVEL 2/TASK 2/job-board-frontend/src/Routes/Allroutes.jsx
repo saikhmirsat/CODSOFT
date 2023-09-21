@@ -8,6 +8,8 @@ import JobApplicationProcess from "../Pages/JobApplicationProcess";
 import CandidateDashboard from "../Pages/CandidateDashboard";
 import EmployeeDashboard from "../Pages/EmployeeDashboard";
 import EmployeePostJobs from "../Pages/EmployeePostJobs";
+import PrivateRouteForEmployee from "./PrivateRouteForEmployee";
+import PrivateRouteForIsAuthCandidate from "./PrivateRouteForIsAuthCandidate";
 
 export default function Allroutes() {
   const isAuth = localStorage.getItem("isAuth");

@@ -4,9 +4,7 @@ import { Navigate } from "react-router-dom";
 export default function PrivateRouteForEmployee({ children }) {
   const isAuth = localStorage.getItem("isAuth");
 
-  if (isAuth == "employee") {
-    return;
-  } else {
+  if (isAuth !== "employee") {
     alert("Please login first as a employee");
     return <Navigate to="/" />;
   }

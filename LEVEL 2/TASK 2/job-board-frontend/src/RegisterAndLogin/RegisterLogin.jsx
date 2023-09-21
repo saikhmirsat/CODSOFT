@@ -3,6 +3,8 @@ import "./RegisterLogin.css";
 import { IoLogoFacebook } from "react-icons/io";
 import { ImGooglePlus3 } from "react-icons/im";
 import { BiLogoLinkedin } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function RegisterLogin() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -18,6 +20,8 @@ export default function RegisterLogin() {
 
   const [loginForm, setLoginForm] = useState(true);
   const [registeForm, setRegisterForm] = useState(false);
+
+  const nagigate = useNavigate();
 
   const RegisterFunc = async (e) => {
     e.preventDefault();
@@ -76,13 +80,19 @@ export default function RegisterLogin() {
             alert(res.msg);
 
             if (res.user[0].role == "candidate") {
+              nagigate("/");
               console.log("candidate");
-              localStorage.setItem("isAuth", "candidate");
+              // localStorage.setItem("isAuth", "candidate");
+              Cookies.set("isAuthCan", true);
+              Cookies.set("isAuthEmp", false);
               window.location.reload();
             }
             if (res.user[0].role == "employee") {
+              nagigate("/");
               console.log("employee");
-              localStorage.setItem("isAuth", "employee");
+              // localStorage.setItem("isAuth", "employee");
+              Cookies.set("isAuthEmp", true);
+              Cookies.set("isAuthCan", false);
               window.location.reload();
             }
           } else {

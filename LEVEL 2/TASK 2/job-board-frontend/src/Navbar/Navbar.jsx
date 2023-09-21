@@ -4,12 +4,23 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCrossCircled } from "react-icons/rx";
 import logo from "../Assets/logo.png";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Navbar() {
   const [hamburger, setHamburger] = useState(false);
 
-  const isAuth = localStorage.getItem("isAuth");
-  console.log(isAuth);
+  const isAuthCan = Cookies.get("isAuthCan");
+  const isAuthEmp = Cookies.get("isAuthEmp");
+
+  const LogoutFuncMobileCan = () => {
+    Cookies.set("isAuthCan", false);
+
+    window.location.reload();
+  };
+  const LogoutFuncMobileEmp = () => {
+    Cookies.set("isAuthEmp", false);
+    window.location.reload();
+  };
 
   const toggleHamburger = () => {
     setHamburger(!hamburger);
@@ -28,19 +39,23 @@ export default function Navbar() {
         <div className="Nav_right_items">
           <Link to="/joblistings">Jobs</Link>
 
-          {isAuth === "employee" ? (
+          {isAuthEmp == "true" ? (
             <Link to="/employeejobpost">Post Jobs</Link>
           ) : (
             ""
           )}
-          {isAuth === "candidate" ? (
+          {isAuthCan == "true" ? (
             <Link to="/jobapplications">Job Applications</Link>
           ) : (
             ""
           )}
-          {isAuth === "employee" ? <Link to="/employee">Dashboard</Link> : ""}
-          {isAuth === "candidate" ? <Link to="/candidate">Dashboard</Link> : ""}
-          {isAuth === "candidate" || isAuth === "employee" ? (
+          {isAuthEmp == "true" ? <Link to="/employee">Emp Dashboard</Link> : ""}
+          {isAuthCan == "true" ? (
+            <Link to="/candidate">Can Dashboard</Link>
+          ) : (
+            ""
+          )}
+          {isAuthCan == "true" || isAuthEmp == "true" ? (
             ""
           ) : (
             <Link to="/registerandlogin">Register & Login</Link>
@@ -67,28 +82,28 @@ export default function Navbar() {
             Jobs
           </Link>
 
-          {isAuth === "employee" ? (
+          {isAuthEmp === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/employeejobpost">
               Post Jobs
             </Link>
           ) : (
             ""
           )}
-          {isAuth === "candidate" ? (
+          {isAuthCan === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/jobapplications">
               Job Applications
             </Link>
           ) : (
             ""
           )}
-          {isAuth === "employee" ? (
+          {isAuthEmp === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/employee">
               Dashboard
             </Link>
           ) : (
             ""
           )}
-          {isAuth === "candidate" ? (
+          {isAuthCan === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/candidate">
               Dashboard
             </Link>
@@ -96,7 +111,7 @@ export default function Navbar() {
             ""
           )}
 
-          {isAuth === "candidate" || isAuth === "employee" ? (
+          {isAuthCan === "true" || isAuthEmp === "true" ? (
             ""
           ) : (
             <Link
@@ -106,6 +121,17 @@ export default function Navbar() {
             >
               Register & Login
             </Link>
+          )}
+
+          {isAuthCan == "true" ? (
+            <Link onClick={LogoutFuncMobileCan}>Logout</Link>
+          ) : (
+            ""
+          )}
+          {isAuthEmp == "true" ? (
+            <Link onClick={LogoutFuncMobileEmp}>Logout</Link>
+          ) : (
+            ""
           )}
         </div>
       </div>
