@@ -1,14 +1,20 @@
 const express = require('express')
-const { connection } = require('./config/db')
-const { UserRoute } = require('./Routes/User.route')
-require('dotenv').config()
 const cors = require('cors')
 const app = express()
+require('dotenv').config()
+const { connection } = require('./config/db')
+const { UserRoute } = require('./Routes/User.route')
+const { Authenticate } = require('./Middleware/Authenticate.middleware')
+const { JobApplicationRouter } = require('./Routes/UserJobApplication.route')
+const { EmployeeJobPostRouter } = require('./Routes/EmployeeJobPostRoute')
 
 app.use(cors())
 app.use(express.json())
 
 app.use('/users', UserRoute)
+app.use(Authenticate)
+app.use('/jobapplications', JobApplicationRouter)
+app.use('/jobs', EmployeeJobPostRouter)
 
 
 app.listen(process.env.PORT, async () => {

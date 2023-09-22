@@ -24,7 +24,7 @@ export default function Allroutes() {
         element={<JobApplicationProcess />}
       ></Route>
       <Route path="/candidate" element={<CandidateDashboard />}></Route>
-      <Route path="/employee" element={<EmployeeDashboard />}></Route>
+      <Route path="/employee" element={<PrivateRouteForEmployee />}></Route>
       <Route path="/employeejobpost" element={<EmployeePostJobs />}></Route>
     </Routes>
   );

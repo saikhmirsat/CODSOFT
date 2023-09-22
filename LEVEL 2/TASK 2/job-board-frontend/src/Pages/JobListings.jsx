@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./JobListings.css";
 import {
   BiSearch,
@@ -11,8 +11,66 @@ import { GoLocation, GoNote } from "react-icons/go";
 import { GrSystem, GrSettingsOption } from "react-icons/gr";
 import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
 import { BsGraphUpArrow, BsBoxSeam, BsRocketTakeoff } from "react-icons/bs";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function JobListings() {
+  const [data, setData] = useState([]);
+
+  const navigate = useNavigate();
+
+  const token = Cookies.get("CandidateToken");
+  console.log(token);
+  useEffect(() => {
+    GetData();
+  }, []);
+
+  const GetData = async () => {
+    try {
+      await fetch(`http://localhost:8080/jobs`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setData(res);
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  function customFormatDistanceToNow(date) {
+    const now = new Date();
+    const diffInMilliseconds = now - date;
+    const secondsAgo = Math.floor(diffInMilliseconds / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+
+    if (daysAgo >= 30) {
+      const monthsAgo = Math.floor(daysAgo / 30);
+      return `${monthsAgo} month${monthsAgo === 1 ? "" : "s"} ago`;
+    } else if (daysAgo >= 1) {
+      return `${daysAgo} day${daysAgo === 1 ? "" : "s"} ago`;
+    } else if (hoursAgo >= 1) {
+      return `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"} ago`;
+    } else if (minutesAgo >= 1) {
+      return `${minutesAgo} minute${minutesAgo === 1 ? "" : "s"} ago`;
+    } else {
+      return `${secondsAgo} second${secondsAgo === 1 ? "" : "s"} ago`;
+    }
+  }
+
+  const GotoDetailPageFunc = (id) => {
+    navigate(`/jobdetail/${id}`);
+  };
+
   return (
     <div className="Joblisting_main_container">
       <div>
@@ -95,208 +153,65 @@ export default function JobListings() {
         <div className="Job_container_Jobslistings">
           <div className="job_conatiner_child1"></div>
           <div className="job_conatiner_child2">
-            <div className="job_cards">
-              <div className="job_card_first_container">
-                <div>
-                  <h3>Frontend Developer</h3>
-                  <p>Diverse Lynx</p>
-                </div>
-                <div>
-                  <img
-                    src="https://img.naukimg.com/logo_images/groups/v1/4554388.gif"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="job_card_second_container">
-                <div>
-                  <FaToolbox /> <p>2-5 year</p>
-                </div>
-                <div>
-                  <FaRupeeSign /> <p>Not disclouse</p>
-                </div>
-                <div>
-                  <GoLocation /> <p>Delhi</p>
-                </div>
-              </div>
-              <div className="job_card_third_container">
-                <GoNote size={30} />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Eligendi ipsa sequi, molestias nulla nobis autem. Quidem,
-                  animi asperiores! Quo aliquid, incidunt accusamus autem est
-                  recusandae veritatis officiis? Iusto, modi repellat.
-                </p>
-              </div>
-              <div className="job_card_container_four">
-                <p>Front </p>
-                <p>•</p>
-                <p>Monitoring</p>
-                <p>•</p>
-                <p>designing</p>
-                <p>•</p>
-                <p>endCodingWeb</p>
-              </div>
-              <div className="job_card_container_five">
-                <div>30+ days ago</div>
-                <div>
-                  <AiOutlineSave size={25} />
-                  <p>Save</p>
-                </div>
-              </div>
-            </div>
+            {data &&
+              data.map((ele) => (
+                <div
+                  key={ele._id}
+                  className="job_cards"
+                  onClick={() => GotoDetailPageFunc(ele._id)}
+                >
+                  <div className="job_card_first_container">
+                    <div>
+                      <h3>{ele.jobTitle}</h3>
+                      <p>{ele.companyName}</p>
+                    </div>
+                    <div>
+                      <img src={ele.CompanyLogo} alt="" />
+                    </div>
+                  </div>
+                  <div className="job_card_second_container">
+                    <div>
+                      <FaToolbox /> <p>{ele.exprinence} year</p>
+                    </div>
+                    <div>
+                      <FaRupeeSign /> <p>{ele.salary} lakh per anual</p>
+                    </div>
 
-            <div className="job_cards">
-              <div className="job_card_first_container">
-                <div>
-                  <h3>Frontend Developer</h3>
-                  <p>Diverse Lynx</p>
-                </div>
-                <div>
-                  <img
-                    src="https://img.naukimg.com/logo_images/groups/v1/4554388.gif"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="job_card_second_container">
-                <div>
-                  <FaToolbox /> <p>2-5 year</p>
-                </div>
-                <div>
-                  <FaRupeeSign /> <p>Not disclouse</p>
-                </div>
-                <div>
-                  <GoLocation /> <p>Delhi</p>
-                </div>
-              </div>
-              <div className="job_card_third_container">
-                <GoNote size={30} />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Eligendi ipsa sequi, molestias nulla nobis autem. Quidem,
-                  animi asperiores! Quo aliquid, incidunt accusamus autem est
-                  recusandae veritatis officiis? Iusto, modi repellat.
-                </p>
-              </div>
-              <div className="job_card_container_four">
-                <p>Front </p>
-                <p>•</p>
-                <p>Monitoring</p>
-                <p>•</p>
-                <p>designing</p>
-                <p>•</p>
-                <p>endCodingWeb</p>
-              </div>
-              <div className="job_card_container_five">
-                <div>30+ days ago</div>
-                <div>
-                  <AiOutlineSave size={25} />
-                  <p>Save</p>
-                </div>
-              </div>
-            </div>
+                    <div>
+                      <GoLocation /> <p>{ele.location}</p>
+                    </div>
+                  </div>
 
-            <div className="job_cards">
-              <div className="job_card_first_container">
-                <div>
-                  <h3>Frontend Developer</h3>
-                  <p>Diverse Lynx</p>
+                  <div className="job_card_third_container">
+                    <GoNote size={30} />
+                    <p>
+                      {`${ele.what_looking_in_collegue[1]}.
+                        ${ele.what_looking_in_collegue[2]} & ${ele.what_looking_in_collegue[3]}`}
+                    </p>
+                  </div>
+
+                  <div className="job_card_container_four">
+                    {ele.skills.map((skill, index) => (
+                      <React.Fragment key={index}>
+                        <p>{skill}</p>
+                        {index !== ele.skills.length - 1 && <p>•</p>}
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="job_card_container_five">
+                    <div>
+                      {" "}
+                      {customFormatDistanceToNow(new Date(ele.JobPostDate), {
+                        addSuffix: true,
+                      })}
+                    </div>
+                    <div>
+                      <AiOutlineSave size={25} />
+                      <p>Save</p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <img
-                    src="https://img.naukimg.com/logo_images/groups/v1/4554388.gif"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="job_card_second_container">
-                <div>
-                  <FaToolbox /> <p>2-5 year</p>
-                </div>
-                <div>
-                  <FaRupeeSign /> <p>Not disclouse</p>
-                </div>
-                <div>
-                  <GoLocation /> <p>Delhi</p>
-                </div>
-              </div>
-              <div className="job_card_third_container">
-                <GoNote size={30} />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Eligendi ipsa sequi, molestias nulla nobis autem. Quidem,
-                  animi asperiores! Quo aliquid, incidunt accusamus autem est
-                  recusandae veritatis officiis? Iusto, modi repellat.
-                </p>
-              </div>
-              <div className="job_card_container_four">
-                <p>Front </p>
-                <p>•</p>
-                <p>Monitoring</p>
-                <p>•</p>
-                <p>designing</p>
-                <p>•</p>
-                <p>endCodingWeb</p>
-              </div>
-              <div className="job_card_container_five">
-                <div>30+ days ago</div>
-                <div>
-                  <AiOutlineSave size={25} />
-                  <p>Save</p>
-                </div>
-              </div>
-            </div>
-            <div className="job_cards">
-              <div className="job_card_first_container">
-                <div>
-                  <h3>Frontend Developer</h3>
-                  <p>Diverse Lynx</p>
-                </div>
-                <div>
-                  <img
-                    src="https://img.naukimg.com/logo_images/groups/v1/4554388.gif"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="job_card_second_container">
-                <div>
-                  <FaToolbox /> <p>2-5 year</p>
-                </div>
-                <div>
-                  <FaRupeeSign /> <p>Not disclouse</p>
-                </div>
-                <div>
-                  <GoLocation /> <p>Delhi</p>
-                </div>
-              </div>
-              <div className="job_card_third_container">
-                <GoNote size={30} />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Eligendi ipsa sequi, molestias nulla nobis autem. Quidem,
-                  animi asperiores! Quo aliquid, incidunt accusamus autem est
-                  recusandae veritatis officiis? Iusto, modi repellat.
-                </p>
-              </div>
-              <div className="job_card_container_four">
-                <p>Front </p>
-                <p>•</p>
-                <p>Monitoring</p>
-                <p>•</p>
-                <p>designing</p>
-                <p>•</p>
-                <p>endCodingWeb</p>
-              </div>
-              <div className="job_card_container_five">
-                <div>30+ days ago</div>
-                <div>
-                  <AiOutlineSave size={25} />
-                  <p>Save</p>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>

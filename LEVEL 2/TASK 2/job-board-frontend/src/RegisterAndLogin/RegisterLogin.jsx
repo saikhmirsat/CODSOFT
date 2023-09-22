@@ -76,24 +76,28 @@ export default function RegisterLogin() {
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
+          const token = res.token;
+
           if (res.success === true) {
-            alert(res.msg);
+            // alert(res.msg);
 
             if (res.user[0].role == "candidate") {
-              nagigate("/");
+              // nagigate("/");
               console.log("candidate");
               // localStorage.setItem("isAuth", "candidate");
               Cookies.set("isAuthCan", true);
               Cookies.set("isAuthEmp", false);
-              window.location.reload();
+              Cookies.set("CandidateToken", token);
+              // window.location.reload();
             }
             if (res.user[0].role == "employee") {
-              nagigate("/");
+              // nagigate("/");
               console.log("employee");
               // localStorage.setItem("isAuth", "employee");
               Cookies.set("isAuthEmp", true);
               Cookies.set("isAuthCan", false);
-              window.location.reload();
+              Cookies.set("EmployeeToken", token);
+              // window.location.reload();
             }
           } else {
             alert(res.msg);
