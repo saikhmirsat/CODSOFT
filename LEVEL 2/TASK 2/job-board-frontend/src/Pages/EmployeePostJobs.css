@@ -1,0 +1,90 @@
+.PostJob_form_container {
+  border: 3px solid #007bff;
+  margin: auto;
+  /* margin-top: 20px; */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0s ease-in-out; /* Use max-height for smoother open/close and adjust timing */
+  opacity: 0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 60%;
+}
+
+.PostJob_form_container.show {
+  max-height: 100%; /* Use 100% to ensure the form expands to its full content height */
+  opacity: 1;
+}
+
+/* Form Input Styles */
+.PostJob_form_container input[type="text"],
+.PostJob_form_container input[type="number"],
+.PostJob_form_container select,
+.PostJob_form_container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.JobDescription_inpu_div {
+  border: 1px solid #ccc;
+  width: 100%;
+  padding: 20px 10px;
+  margin-bottom: 16px;
+  /* border: 1px solid #ccc; */
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.jobdescription_extra_input_div {
+  /* border: 1px solid rgb(3, 76, 221); */
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.jobdescription_extra_input_div > button {
+  display: flex;
+  align-items: center;
+  background-color: #007bff;
+  font-size: 20px;
+  padding: 8px 15px;
+  margin-top: -14px;
+  border: 1px solid #ccc;
+  border-left: none;
+  color: red;
+}
+.jobdescription_extra_input_div input {
+  border-radius: unset;
+}
+.JobDescription_inpu_div > button {
+  background-color: #007bff;
+  padding: 5px 20px;
+  border: none;
+  width: 100%;
+  font-size: 20px;
+  font-weight: bolder;
+  color: white;
+  border-radius: 4px;
+}
+
+.about_my_conpany_con {
+  /* border: 1px solid red; */
+}
+.add_post_btn {
+  margin: 40px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 40px;
+}
+
+.jobpostpage_second_con {
+  border: 1px solid red;
+  width: 90%;
+  margin: auto;
+}

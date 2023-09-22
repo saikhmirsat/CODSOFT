@@ -84,19 +84,21 @@ export default function RegisterLogin() {
             if (res.user[0].role == "candidate") {
               // nagigate("/");
               console.log("candidate");
-              // localStorage.setItem("isAuth", "candidate");
+
               Cookies.set("isAuthCan", true);
               Cookies.set("isAuthEmp", false);
               Cookies.set("CandidateToken", token);
+              Cookies.set("userData", JSON.stringify(res.user[0]));
               // window.location.reload();
             }
             if (res.user[0].role == "employee") {
               // nagigate("/");
               console.log("employee");
-              // localStorage.setItem("isAuth", "employee");
+
               Cookies.set("isAuthEmp", true);
               Cookies.set("isAuthCan", false);
               Cookies.set("EmployeeToken", token);
+              Cookies.set("userData", JSON.stringify(res.user[0]));
               // window.location.reload();
             }
           } else {

@@ -6,14 +6,14 @@ const EmployeeJobPostSchema = mongoose.Schema({
     jobTitle: String,
     companyName: String,
     CompanyLogo: String,
-    exprinence: String,
+    experience: String,
     salary: String,
     location: String,
     JobPostDate: {
         type: Date,
         default: Date.now, // Set the default value to the current date and time
     },
-    vacance: Number,
+    vacancy: Number,
     applications: Number,
     jobDescription: Array,
     what_looking_in_collegue: Array,
@@ -22,7 +22,7 @@ const EmployeeJobPostSchema = mongoose.Schema({
     department: String,
     employmentType: String,
     roleCatagory: String,
-    educations: Array,
+    educations: String,
     skills: Array,
     aboutCompany: Array
 }, {

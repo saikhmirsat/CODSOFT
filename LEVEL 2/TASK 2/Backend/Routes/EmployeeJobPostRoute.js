@@ -27,7 +27,7 @@ EmployeeJobPostRouter.get('/:_id', async (req, res) => {
     }
 });
 
-EmployeeJobPostRouter.get('/:user', async (req, res) => {
+EmployeeJobPostRouter.get('/user/:user', async (req, res) => {
     try {
         const { user } = req.params
         const data = await EmployeeJobPostModel.find({ user })

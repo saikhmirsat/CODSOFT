@@ -16,10 +16,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function JobListings() {
   const [data, setData] = useState([]);
+  console.log({ data });
 
   const navigate = useNavigate();
 
-  const token = Cookies.get("CandidateToken");
+  const token = Cookies.get("CandidateToken") || Cookies.get("EmployeeToken");
+
   console.log(token);
   useEffect(() => {
     GetData();
@@ -171,7 +173,7 @@ export default function JobListings() {
                   </div>
                   <div className="job_card_second_container">
                     <div>
-                      <FaToolbox /> <p>{ele.exprinence} year</p>
+                      <FaToolbox /> <p>{ele.experience} year</p>
                     </div>
                     <div>
                       <FaRupeeSign /> <p>{ele.salary} lakh per anual</p>
