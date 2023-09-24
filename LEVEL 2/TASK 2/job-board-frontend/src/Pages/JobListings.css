@@ -218,6 +218,7 @@
   font-family: Satoshi, sans-serif;
 }
 .job_card_container_four {
+  /* border: 1px solid red; */
   display: flex;
   gap: 10px;
   margin-top: 10px;

@@ -82,9 +82,28 @@
   color: white;
   padding: 10px 40px;
 }
-
+.Industry_type_div {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 0px;
+}
+.Indestry_type_other_div_flex {
+  /* border: 1px solid red; */
+  display: grid;
+  grid-template-columns: repeat(2, 17.5% 80%);
+  align-items: center;
+  gap: 20px;
+}
+.Indestry_type_other_div_flex > label {
+  margin-bottom: 14px;
+}
 .jobpostpage_second_con {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 90%;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 100px;
 }

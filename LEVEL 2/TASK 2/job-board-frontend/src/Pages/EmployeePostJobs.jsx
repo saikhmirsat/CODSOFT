@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "./EmployeePostJobs.css";
 import Cookies from "js-cookie";
+import {
+  BiSearch,
+  BiRightArrowAlt,
+  BiSolidBuildingHouse,
+} from "react-icons/bi";
+import { AiOutlineHome, AiOutlineSave } from "react-icons/ai";
+import { SlGraph } from "react-icons/sl";
+import { GoLocation, GoNote } from "react-icons/go";
+import { GrSystem, GrSettingsOption } from "react-icons/gr";
+import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
+import { BsGraphUpArrow, BsBoxSeam, BsRocketTakeoff } from "react-icons/bs";
+
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeePostJobs() {
   const [formContainer, setFormContainer] = useState(false);
 
   const [jobsData, setJobData] = useState([]);
+  console.log(jobsData);
 
   const [jobTitle, setJobTitle] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -25,6 +39,34 @@ export default function EmployeePostJobs() {
   const [educations, setEducations] = useState("");
   const [skills, setSkills] = useState([""]);
   const [aboutCompany, setAboutCompany] = useState([""]);
+
+  const navigate = useNavigate();
+
+  const GotoDetailPageFunc = (id) => {
+    navigate(`/jobdetail/${id}`);
+  };
+
+  function customFormatDistanceToNow(date) {
+    const now = new Date();
+    const diffInMilliseconds = now - date;
+    const secondsAgo = Math.floor(diffInMilliseconds / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+
+    if (daysAgo >= 30) {
+      const monthsAgo = Math.floor(daysAgo / 30);
+      return `${monthsAgo} month${monthsAgo === 1 ? "" : "s"} ago`;
+    } else if (daysAgo >= 1) {
+      return `${daysAgo} day${daysAgo === 1 ? "" : "s"} ago`;
+    } else if (hoursAgo >= 1) {
+      return `${hoursAgo} hour${hoursAgo === 1 ? "" : "s"} ago`;
+    } else if (minutesAgo >= 1) {
+      return `${minutesAgo} minute${minutesAgo === 1 ? "" : "s"} ago`;
+    } else {
+      return `${secondsAgo} second${secondsAgo === 1 ? "" : "s"} ago`;
+    }
+  }
 
   // =============Job Description============
   const addJobDescriptionField = () => {
@@ -188,7 +230,7 @@ export default function EmployeePostJobs() {
         value={industryType}
         onChange={(e) => handleIndustryTypeChange(e.target.value)}
       >
-        <option value="">Select an option</option>
+        <option value="">Industry Type</option>
         {industryTypeOptions.map((option) => (
           <option key={option} value={option}>
             {option}
@@ -236,6 +278,12 @@ export default function EmployeePostJobs() {
       })
         .then((res) => res.json())
         .then((res) => {
+          if (res.success == true) {
+            alert(res.msg);
+            getData();
+          } else {
+            alert(res.msg);
+          }
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -284,6 +332,7 @@ export default function EmployeePostJobs() {
       </button>
       <div
         className={`PostJob_form_container ${formContainer ? "show" : "hide"}`}
+        style={{ marginBottom: formContainer ? "50px" : "" }}
       >
         <div>
           <input
@@ -365,17 +414,18 @@ export default function EmployeePostJobs() {
             onChange={(e) => setRole(e.target.value)}
           />
         </div>
-        <div>
-          <label>Industry Type:</label>
+        <div className="Industry_type_div">
           {renderIndustryTypeOptions()}
           {/* Optionally, include a text input for custom industry type */}
-          <label>Other:</label>
-          <input
-            type="text"
-            placeholder="Other Industry Type (if applicable)"
-            value={industryType}
-            onChange={(e) => setIndustryType(e.target.value)}
-          />
+          <div className="Indestry_type_other_div_flex">
+            <label>If Other:</label>
+            <input
+              type="text"
+              placeholder="Other Industry Type (if applicable)"
+              value={industryType}
+              onChange={(e) => setIndustryType(e.target.value)}
+            />
+          </div>
         </div>
         <div>
           <input
@@ -419,8 +469,71 @@ export default function EmployeePostJobs() {
         </div>
         <button onClick={SubmitFunc}>Submit</button>
       </div>
+      {/* =======this container im use in from job listing cards and alson i can change css in there================ */}
       <div className="jobpostpage_second_con">
-        {!jobsData ? "data" : "no data"}
+        <h2>Your All Posting Jobs</h2>
+        {jobsData
+          ? jobsData.map((ele) => (
+              <div
+                key={ele._id}
+                className="job_cards"
+                onClick={() => GotoDetailPageFunc(ele._id)}
+              >
+                <div className="job_card_first_container">
+                  <div>
+                    <h3>{ele.jobTitle}</h3>
+                    <p>{ele.companyName}</p>
+                  </div>
+                  <div>
+                    <img src={ele.CompanyLogo} alt="" />
+                  </div>
+                </div>
+                <div className="job_card_second_container">
+                  <div>
+                    <FaToolbox /> <p>{ele.experience} year</p>
+                  </div>
+                  <div>
+                    <FaRupeeSign /> <p>{ele.salary} lakh per anual</p>
+                  </div>
+
+                  <div>
+                    <GoLocation /> <p>{ele.location}</p>
+                  </div>
+                </div>
+
+                <div className="job_card_third_container">
+                  <GoNote size={30} />
+                  <p>
+                    {`${ele.what_looking_in_collegue[1]}.
+                        ${ele.what_looking_in_collegue[2]} & ${ele.what_looking_in_collegue[3]}`}
+                  </p>
+                </div>
+
+                <div className="job_card_container_four">
+                  {ele.skills.map((skill, index) => (
+                    <React.Fragment key={index}>
+                      <p>{skill}</p>
+                      {index !== ele.skills.length - 1 && <p>•</p>}
+                    </React.Fragment>
+                  ))}
+                </div>
+
+                <div className="job_card_container_five">
+                  <div>
+                    {" "}
+                    {customFormatDistanceToNow(new Date(ele.JobPostDate), {
+                      addSuffix: true,
+                    })}
+                  </div>
+                  <div>
+                    <AiOutlineSave size={25} />
+                    <p>Save</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          : "no data"}
+        {/* =================================================end============== */}
       </div>
     </div>
   );
