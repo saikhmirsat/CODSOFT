@@ -12,7 +12,6 @@ import { SlGraph } from "react-icons/sl";
 import { GoLocation, GoNote } from "react-icons/go";
 import { GrSystem, GrSettingsOption } from "react-icons/gr";
 import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
-import { BsGraphUpArrow, BsBoxSeam, BsRocketTakeoff } from "react-icons/bs";
 
 export default function JobDetail() {
   const [jobData, setJobData] = useState({});
