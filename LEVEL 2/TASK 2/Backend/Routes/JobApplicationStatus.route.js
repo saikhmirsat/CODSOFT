@@ -55,14 +55,18 @@ JobApplicationStatusRouter.get("/filteredData/:userId", async (req, res) => {
     }
 });
 
-JobApplicationStatusRouter.patch("/updateStatus/:id", async (req, res) => {
+JobApplicationStatusRouter.patch("/update/:id", async (req, res) => {
     const jobId = req.params.id; // Get the job application ID from the request params
 
     try {
         const updatedFields = req.body; // Assuming your request body contains the fields to update
 
         // Use findByIdAndUpdate to update the document by its ID
-        const updatedApplicationStatus = await JobApplicationStatusModel.findByIdAndUpdate(jobId, updatedFields, { new: true });
+        const updatedApplicationStatus = await JobApplicationStatusModel.findByIdAndUpdate(
+            jobId, // Use jobId to find the document by its ID
+            { $set: { status: updatedFields.status } }, // Update only the 'status' field
+            { new: true } // This option returns the updated document
+        );
 
         if (!updatedApplicationStatus) {
             return res.status(404).json({ message: "Job application status not found" });
@@ -74,6 +78,7 @@ JobApplicationStatusRouter.patch("/updateStatus/:id", async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
 
 
 

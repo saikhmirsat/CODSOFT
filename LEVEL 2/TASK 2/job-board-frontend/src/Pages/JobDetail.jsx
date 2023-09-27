@@ -79,8 +79,29 @@ export default function JobDetail() {
     }
   };
 
-  const ModalFunc = () => {
-    console.log("hi");
+  const JobApplyFunc = async () => {
+    const obj = {
+      status: false,
+      jobData: jobData,
+    };
+
+    try {
+      await fetch(`http://localhost:8080/jobstatus/apply`, {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          alert(res.msg);
+          console.log(res);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -134,7 +155,7 @@ export default function JobDetail() {
             })}
           </div>
           {isAuthCan ? (
-            <button className="Apply_button_jobs" onClick={ModalFunc}>
+            <button className="Apply_button_jobs" onClick={JobApplyFunc}>
               Apply
             </button>
           ) : (

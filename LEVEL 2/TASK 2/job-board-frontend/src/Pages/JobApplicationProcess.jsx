@@ -6,8 +6,10 @@ export default function JobApplicationProcess() {
 
   const token = Cookies.get("CandidateToken") || Cookies.get("EmployeeToken");
 
+  const userData = JSON.parse(Cookies.get("userData"));
+
   useEffect(() => {
-    fetch(`http://localhost:8080/jobstatus/650afd479aa1ca42b888bd3a`, {
+    fetch(`http://localhost:8080/jobstatus/${userData._id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",

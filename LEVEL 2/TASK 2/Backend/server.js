@@ -13,9 +13,9 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/users', UserRoute)
+app.use('/jobs', EmployeeJobPostRouter)
 app.use(Authenticate)
 app.use('/jobapplications', JobApplicationRouter)
-app.use('/jobs', EmployeeJobPostRouter)
 app.use('/jobstatus', JobApplicationStatusRouter)
 
 

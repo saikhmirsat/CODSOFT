@@ -22,7 +22,6 @@ export default function JobListings() {
 
   const token = Cookies.get("CandidateToken") || Cookies.get("EmployeeToken");
 
-  console.log(token);
   useEffect(() => {
     GetData();
   }, []);
