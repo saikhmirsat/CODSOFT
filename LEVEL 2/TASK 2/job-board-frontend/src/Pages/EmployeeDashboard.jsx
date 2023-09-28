@@ -91,7 +91,7 @@ export default function EmployeeDashboard() {
         </div>
         {data.map((ele) => (
           <div key={ele._id} className="employe_table_data">
-            <p>name</p>
+            <p>{ele.candidateName}</p>
 
             {/* Render user name here */}
             <p> {ele.jobData.jobTitle}</p>

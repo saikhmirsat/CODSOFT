@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const UserJobApplicationSchema = mongoose.Schema({
     user: String,
     status: Boolean,
+    candidateName: String,
     jobData: Object
 
 }, {

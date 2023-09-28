@@ -27,6 +27,8 @@ export default function JobDetail() {
 
   const isAuthCandidate = Cookies.get("isAuthCan");
 
+  const userData = JSON.parse(Cookies.get("userData"));
+  console.log({ userData });
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -85,9 +87,10 @@ export default function JobDetail() {
   const JobApplyFunc = async () => {
     const obj = {
       status: false,
+      candidateName: userData.name,
       jobData: jobData,
     };
-
+    console.log(obj);
     try {
       await fetch(`http://localhost:8080/jobapplications/apply`, {
         method: "POST",
