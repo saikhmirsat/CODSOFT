@@ -12,6 +12,23 @@ UserRoute.get('/', async (req, res) => {
     console.log('welcome')
 })
 
+UserRoute.get('/:_id', async (req, res) => {
+    const { _id } = req.params; // Use req.params to access route parameters
+    try {
+        const data = await UserModel.findById(_id);
+        if (!data) {
+            // Handle the case where the document with the given _id is not found
+            return res.status(404).json({ error: 'Document not found' });
+        }
+        res.send(data);
+    } catch (error) {
+        // Handle any errors that occur during the database query
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 UserRoute.post('/register', async (req, res) => {
     const { name, email, password, role, mobile } = req.body
     try {

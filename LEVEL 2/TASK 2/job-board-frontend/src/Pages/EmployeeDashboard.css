@@ -1,0 +1,41 @@
+.Employe_dashboard_main_container {
+  border: 1px solid red;
+}
+.employe_container {
+  /* border: 1px solid blue; */
+  width: 80%;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+.employe_container > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.Employ_table_header {
+  background-color: royalblue;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+}
+.employe_table_data {
+  background-color: aliceblue;
+}
+.employe_table_data > p {
+  border: 1px solid #ccc;
+  height: 100%;
+  font-size: 18px;
+  padding: 10px;
+}
+.employe_table_data button {
+  padding: 5px;
+  width: 150px;
+}
+.employe_status_btn {
+  color: green;
+}
+.employe_status_btn_pending {
+  color: red;
+}

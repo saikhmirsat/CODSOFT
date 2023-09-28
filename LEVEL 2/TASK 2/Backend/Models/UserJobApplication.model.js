@@ -3,9 +3,8 @@ const mongoose = require('mongoose')
 
 const UserJobApplicationSchema = mongoose.Schema({
     user: String,
-    resume: String,
     status: Boolean,
-    jobdetails: [Object]
+    jobData: Object
 
 }, {
     versionKey: false

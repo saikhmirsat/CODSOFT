@@ -29,15 +29,15 @@ EmployeeJobPostRouter.get('/:_id', async (req, res) => {
 
 EmployeeJobPostRouter.get('/user/:user', async (req, res) => {
     try {
-        const { user } = req.params
-        const data = await EmployeeJobPostModel.find({ user })
+        const { user } = req.params;
+        const data = await EmployeeJobPostModel.find({ user: user }); // Adjust the field name as needed
 
-        res.send(data)
+        res.send(data);
     } catch (err) {
-        res.send({ "msg": "Not get user request", "sucess": false })
-        console.log(err)
+        res.status(500).json({ message: 'Internal server error', success: false });
+        console.error(err);
     }
-})
+});
 
 EmployeeJobPostRouter.post('/post', async (req, res) => {
     try {

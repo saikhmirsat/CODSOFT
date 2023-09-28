@@ -1,9 +1,17 @@
 import React from "react";
 import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function CandidateDashboard() {
+  const navigate = useNavigate();
+
   const LoginFunc = () => {
-    Cookies.set("isAuthCan", false);
+    Cookies.remove("EmployeeToken");
+    Cookies.remove("userData");
+    Cookies.remove("isAuthCan");
+    Cookies.remove("isAuthEmp");
+    window.location.reload();
+    navigate("/");
     window.location.reload();
   };
 

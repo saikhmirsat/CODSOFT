@@ -20,10 +20,12 @@ export default function JobDetail() {
   const [skills, setSkills] = useState([""]);
   const [jobDescription, setJobDescription] = useState([""]);
   const [aboutCompany, setAboutCompany] = useState([""]);
+  const [isAuthCan, setIsAuthCan] = useState(false);
+  console.log({ isAuthCan });
 
   const token = Cookies.get("CandidateToken") || Cookies.get("EmployeeToken");
 
-  const isAuthCan = Cookies.get("isAuthCan");
+  const isAuthCandidate = Cookies.get("isAuthCan");
 
   const { id } = useParams();
 
@@ -53,6 +55,7 @@ export default function JobDetail() {
 
   useEffect(() => {
     GetData();
+    setIsAuthCan(isAuthCandidate);
   }, []);
 
   const GetData = async () => {
@@ -86,7 +89,7 @@ export default function JobDetail() {
     };
 
     try {
-      await fetch(`http://localhost:8080/jobstatus/apply`, {
+      await fetch(`http://localhost:8080/jobapplications/apply`, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -161,6 +164,7 @@ export default function JobDetail() {
           ) : (
             ""
           )}
+
           <div>
             <AiOutlineSave size={25} />
             <p>Save</p>

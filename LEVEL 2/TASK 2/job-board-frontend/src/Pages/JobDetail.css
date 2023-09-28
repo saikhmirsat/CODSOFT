@@ -111,8 +111,11 @@
 .jobdetail_paragraph > p {
   margin-bottom: 20px;
 }
-
+/* .Apply_button_Hide {
+  display: none;
+} */
 .Apply_button_jobs {
+  /* display: contents; */
   border: none;
   background-color: royalblue;
   color: white;
