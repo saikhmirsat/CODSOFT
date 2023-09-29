@@ -1,5 +1,5 @@
 .Joblisting_main_container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .Joblisting_main_container > div > h1 {
@@ -238,4 +238,83 @@
   display: flex;
   gap: 10px;
   align-items: center;
+}
+@media (max-width: 820px) {
+  .Joblisting_main_container {
+    /* border: 1px solid brown; */
+  }
+  .Job_container_Jobslistings {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+  .Job_container_Jobslistings .job_conatiner_child1 {
+    /* border: 1px solid red; */
+    height: 50px;
+    margin: 10px 0px;
+  }
+  .Joblisting_search_box {
+    /* border: 1px solid red; */
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(3, 10% 60% 30%);
+  }
+  .filter_section_joblisting {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+@media (max-width: 480px) {
+  .Joblisting_main_container {
+    /* border: 1px solid rgb(42, 114, 165); */
+  }
+
+  .Joblisting_main_container > div > h1 {
+    font-size: 30px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  .Joblisting_main_container > div > p {
+    margin-bottom: 30px;
+  }
+  .Joblisting_search_box {
+    /* border: 1px solid red; */
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 10% 60% 30%);
+    padding: 5px 10px;
+  }
+  .Joblisting_search_box button {
+    font-size: 15px;
+  }
+  .Search_icon_joblisting {
+    /* border: 1px solid red; */
+    width: 23px;
+  }
+  .filter_section_joblisting {
+    /* border: 1px solid red; */
+    width: 90%;
+  }
+  .filter_section_joblisting .tooltip {
+    /* border: 1px solid green; */
+    padding: 2px 10px;
+  }
+  .filter_stickers {
+    width: 15px;
+  }
+  .filter_section_joblisting > div {
+    height: auto;
+  }
+  .job_card_second_container {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin-bottom: 10px;
+  }
+  .third_container_sticker {
+    width: 100px;
+  }
 }

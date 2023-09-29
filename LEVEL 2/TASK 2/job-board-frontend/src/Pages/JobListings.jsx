@@ -78,81 +78,86 @@ export default function JobListings() {
         <h1>Find your dream job now</h1>
         <p>5 lakh+ jobs for you to explore</p>
         <div className="Joblisting_search_box">
-          <BiSearch size="30px" />
+          <BiSearch size="30px" className="Search_icon_joblisting" />
           <input type="text" placeholder="Search your dream jobs" />
           <button>Search</button>
         </div>
         <div className="filter_section_joblisting">
           <div className="tooltip">
-            <AiOutlineHome size="20px" />
+            <AiOutlineHome size="20px" className="filter_stickers" />
             <h3>Remote</h3>
             <h3 className="tooltiptext">Remote</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <BiSolidBuildingHouse size="20px" />
+            <BiSolidBuildingHouse size="20px" className="filter_stickers" />
             <h3>MNC</h3>
             <h3 className="tooltiptext">MNC</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <BsGraphUpArrow size="20px" />
+            <BsGraphUpArrow size="20px" className="filter_stickers" />
             <h3>Data Science & Analytics </h3>
             <h3 className="tooltiptext">Data Science & Analytics </h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <BsBoxSeam size="20px" />
+            <BsBoxSeam size="20px" className="filter_stickers" />
             <h3>Supply Chain</h3>
             <h3 className="tooltiptext">Supply Chain</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <SlGraph size="20px" />
+            <SlGraph size="20px" className="filter_stickers" />
             <h3>Marketing</h3>
             <h3 className="tooltiptext">Marketing</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <GrSystem size="20px" />
+            <GrSystem size="20px" className="filter_stickers" />
             <h3>Software & IT</h3>
             <h3 className="tooltiptext">Software & IT</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <FaToolbox size="20px" />
+            <FaToolbox size="20px" className="filter_stickers" />
             <h3>Sales</h3>
             <h3 className="tooltiptext">Sales</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <FaRupeeSign size="20px" />
+            <FaRupeeSign size="20px" className="filter_stickers" />
             <h3>Banking & Finance</h3>
             <h3 className="tooltiptext">Banking & Finance</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <BsRocketTakeoff size="20px" />
+            <BsRocketTakeoff size="20px" className="filter_stickers" />
             <h3>Startup</h3>
             <h3 className="tooltiptext">Startup</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <GrSettingsOption size="20px" />
+            <GrSettingsOption size="20px" className="filter_stickers" />
             <h3>Engineering</h3>
             <h3 className="tooltiptext">Engineering</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
           <div className="tooltip">
-            <FaSearchDollar size="20px" />
+            <FaSearchDollar size="20px" className="filter_stickers" />
             <h3>Analytics</h3>
             <h3 className="tooltiptext">Analytics</h3>
-            <BiRightArrowAlt size="30px" />
+            <BiRightArrowAlt size="30px" className="filter_stickers" />
           </div>
         </div>
 
         <div className="Job_container_Jobslistings">
-          <div className="job_conatiner_child1"></div>
+          <div className="job_conatiner_child1">
+            <div>
+              <p>Sort by date</p>
+              
+            </div>
+          </div>
           <div className="job_conatiner_child2">
             {data &&
               data.map((ele) => (
@@ -184,7 +189,7 @@ export default function JobListings() {
                   </div>
 
                   <div className="job_card_third_container">
-                    <GoNote size={30} />
+                    <GoNote size={30} className="third_container_sticker" />
                     <p>
                       {`${ele.what_looking_in_collegue[1]}.
                         ${ele.what_looking_in_collegue[2]} & ${ele.what_looking_in_collegue[3]}`}
