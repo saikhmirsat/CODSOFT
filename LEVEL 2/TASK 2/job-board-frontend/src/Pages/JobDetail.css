@@ -124,3 +124,16 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+@media (max-width: 820px) {
+  .job_details_main_container {
+    border: 1px solid green;
+    padding: 40px;
+  }
+}
+@media (max-width: 480px) {
+  .job_details_main_container {
+    border: 1px solid blue;
+    padding: 20px;
+  }
+}

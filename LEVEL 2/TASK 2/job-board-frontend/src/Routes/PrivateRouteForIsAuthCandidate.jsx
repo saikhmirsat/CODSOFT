@@ -3,11 +3,17 @@ import { Navigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function PrivateRouteForIsAuthCandidate({ children }) {
-  const isAuth = localStorage.getItem("isAuthEmp");
+  const isAuthEmp = localStorage.getItem("isAuthEmp");
+  const isAuthCan = localStorage.getItem("isAuthCan");
 
-  if (!isAuth) {
-    alert("Please login first as a candidate");
+  if (isAuthEmp) {
+    alert("Your not authorized");
     return <Navigate to="/" />;
+  }
+
+  if (!isAuthEmp && !isAuthCan) {
+    alert("Please Login First");
+    return <Navigate to="/registerandlogin" />;
   }
 
   return children;

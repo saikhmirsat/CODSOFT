@@ -136,7 +136,7 @@ export default function JobDetail() {
         </div>
 
         <div className="job_card_third_container">
-          <GoNote size={30} />
+          <GoNote size={30} className="third_container_sticker" />
           <p>{}</p>
           <p>
             {`${whatLookingInColleague[1]}.

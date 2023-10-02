@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function JobListings() {
   const [data, setData] = useState([]);
-  console.log({ data });
+  const [filter, setFilter] = useState("All"); // Default filter is "All"
+  const [isAscending, setIsAscending] = useState(true);
 
   const navigate = useNavigate();
 
@@ -72,6 +73,25 @@ export default function JobListings() {
     navigate(`/jobdetail/${id}`);
   };
 
+  // Filtering function
+  const handleFilter = (category) => {
+    setFilter(category);
+  };
+
+  // Sorting function
+  const handleSort = () => {
+    setIsAscending(!isAscending);
+    const sortedData = [...data];
+    sortedData.sort((a, b) => {
+      if (isAscending) {
+        return new Date(a.JobPostDate) - new Date(b.JobPostDate);
+      } else {
+        return new Date(b.JobPostDate) - new Date(a.JobPostDate);
+      }
+    });
+    setData(sortedData);
+  };
+
   return (
     <div className="Joblisting_main_container">
       <div>
@@ -83,7 +103,10 @@ export default function JobListings() {
           <button>Search</button>
         </div>
         <div className="filter_section_joblisting">
-          <div className="tooltip">
+          <div
+            className={`tooltip ${filter === "Remote" ? "active" : ""}`}
+            onClick={() => handleFilter("Remote")}
+          >
             <AiOutlineHome size="20px" className="filter_stickers" />
             <h3>Remote</h3>
             <h3 className="tooltiptext">Remote</h3>
@@ -154,8 +177,10 @@ export default function JobListings() {
         <div className="Job_container_Jobslistings">
           <div className="job_conatiner_child1">
             <div>
-              <p>Sort by date</p>
-              
+              <p>Sorting by date</p>
+              <button onClick={handleSort}>
+                {isAscending ? "Ascending" : "Descending"}
+              </button>
             </div>
           </div>
           <div className="job_conatiner_child2">

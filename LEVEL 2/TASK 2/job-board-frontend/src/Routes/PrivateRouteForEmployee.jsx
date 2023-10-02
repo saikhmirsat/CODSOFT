@@ -4,12 +4,16 @@ import Cookies from "js-cookie";
 
 export default function PrivateRouteForEmployee({ children }) {
   // const isAuth = localStorage.getItem("isAuthCan");
-  const isAuth = Cookies.get("isAuthCan");
+  const isAuthCan = Cookies.get("isAuthCan");
+  const isAuthEmp = Cookies.get("isAuthEmp");
 
-  if (!isAuth) {
-    alert("Please login first as a employee");
+  if (isAuthCan) {
+    alert("Your not authorized");
     return <Navigate to="/" />;
   }
-
+  if (!isAuthEmp && !isAuthCan) {
+    alert("Please Login First");
+    return <Navigate to="/registerandlogin" />;
+  }
   return children;
 }
