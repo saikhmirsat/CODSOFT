@@ -11,10 +11,5 @@ export default function PrivateRouteForIsAuthCandidate({ children }) {
     return <Navigate to="/" />;
   }
 
-  if (!isAuthEmp && !isAuthCan) {
-    alert("Please Login First");
-    return <Navigate to="/registerandlogin" />;
-  }
-
   return children;
 }

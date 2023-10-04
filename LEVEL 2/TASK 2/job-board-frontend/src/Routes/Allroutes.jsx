@@ -18,48 +18,14 @@ export default function Allroutes() {
       <Route path="/" element={<Home />}></Route>
       <Route path="/registerandlogin" element={<RegisterLogin />}></Route>
       <Route path="/joblistings" element={<JobListings />}></Route>
-      <Route
-        path="/jobdetail/:id"
-        element={
-          <PrivateRouteForEmployee>
-            <PrivateRouteForIsAuthCandidate>
-              <JobDetail />
-            </PrivateRouteForIsAuthCandidate>
-          </PrivateRouteForEmployee>
-        }
-      ></Route>
+      <Route path="/jobdetail/:id" element={<JobDetail />}></Route>
       <Route
         path="/jobapplications"
-        element={
-          <PrivateRouteForIsAuthCandidate>
-            <JobApplicationProcess />
-          </PrivateRouteForIsAuthCandidate>
-        }
+        element={<JobApplicationProcess />}
       ></Route>
-      <Route
-        path="/candidate"
-        element={
-          <PrivateRouteForIsAuthCandidate>
-            <CandidateDashboard />
-          </PrivateRouteForIsAuthCandidate>
-        }
-      ></Route>
-      <Route
-        path="/employee"
-        element={
-          <PrivateRouteForEmployee>
-            <EmployeeDashboard />
-          </PrivateRouteForEmployee>
-        }
-      ></Route>
-      <Route
-        path="/employeejobpost"
-        element={
-          <PrivateRouteForEmployee>
-            <EmployeePostJobs />
-          </PrivateRouteForEmployee>
-        }
-      ></Route>
+      <Route path="/candidate" element={<CandidateDashboard />}></Route>
+      <Route path="/employee" element={<EmployeeDashboard />}></Route>
+      <Route path="/employeejobpost" element={<EmployeePostJobs />}></Route>
     </Routes>
   );
 }

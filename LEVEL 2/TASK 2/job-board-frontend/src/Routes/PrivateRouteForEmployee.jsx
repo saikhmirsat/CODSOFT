@@ -11,9 +11,6 @@ export default function PrivateRouteForEmployee({ children }) {
     alert("Your not authorized");
     return <Navigate to="/" />;
   }
-  if (!isAuthEmp && !isAuthCan) {
-    alert("Please Login First");
-    return <Navigate to="/registerandlogin" />;
-  }
+
   return children;
 }

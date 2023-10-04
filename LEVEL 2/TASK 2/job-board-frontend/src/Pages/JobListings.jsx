@@ -18,6 +18,12 @@ export default function JobListings() {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("All"); // Default filter is "All"
   const [isAscending, setIsAscending] = useState(true);
+  const [selectedSalaryFilter, setSelectedSalaryFilter] = useState(null);
+  const [filteredData, setFilteredData] = useState([]); // Store filtered data
+  const [noDataFound, setNoDataFound] = useState(false);
+  const [selectedPlaceFilter, setSelectedPlaceFilter] = useState(null); // Track selected place filter
+  const [activePlaceFilter, setActivePlaceFilter] = useState(null); // Default active place filter is null
+  const [activeSalaryFilter, setActiveSalaryFilter] = useState(null); // Default active salary filter is null
 
   const navigate = useNavigate();
 
@@ -39,6 +45,7 @@ export default function JobListings() {
         .then((res) => res.json())
         .then((res) => {
           setData(res);
+          setFilteredData(res); // Initialize filteredData with all data
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -76,6 +83,8 @@ export default function JobListings() {
   // Filtering function
   const handleFilter = (category) => {
     setFilter(category);
+    setSelectedPlaceFilter(category); // Set the selected place filter
+    clearSalaryFilter(); // Clear the salary filter when a new filter is applied
   };
 
   // Sorting function
@@ -90,6 +99,73 @@ export default function JobListings() {
       }
     });
     setData(sortedData);
+  };
+
+  const handleSalaryFilter = (salaryRange) => {
+    setSelectedSalaryFilter(salaryRange);
+
+    // Filter the jobs based on the selected salary range
+    const filteredJobs = data.filter((job) => {
+      const salary = parseInt(job.salary);
+      switch (salaryRange) {
+        case "0-2":
+          return salary >= 0 && salary <= 2;
+        case "0-5":
+          return salary >= 0 && salary <= 5;
+        case "5-7":
+          return salary >= 5 && salary <= 7;
+        case "5-10":
+          return salary >= 5 && salary <= 10;
+        case "10-15":
+          return salary >= 10 && salary <= 15;
+        default:
+          return true; // No filter selected, return all jobs
+      }
+    });
+
+    setActivePlaceFilter(null);
+
+    setFilteredData(filteredJobs);
+    // Set the active salary filter
+    setActiveSalaryFilter(salaryRange);
+
+    // Check if no data is found after filtering
+    if (filteredJobs.length === 0) {
+      setNoDataFound(true);
+    } else {
+      setNoDataFound(false);
+    }
+  };
+
+  const clearSalaryFilter = () => {
+    setSelectedSalaryFilter(null);
+    setFilteredData(data); // Reset filtered data to the original data
+    setNoDataFound(false); // Reset the "no data found" flag
+    setActivePlaceFilter(null);
+    setActiveSalaryFilter(null);
+  };
+
+  const handlePlaceFilter = (place) => {
+    // Filter the jobs based on the selected place
+    const filteredJobs = data.filter((job) => {
+      return job.location === place;
+    });
+
+    setSelectedPlaceFilter(place);
+
+    // Update the filteredData state with the filtered jobs
+    setFilteredData(filteredJobs);
+
+    // Set the active place filter
+    setActivePlaceFilter(place);
+    setActiveSalaryFilter(null);
+
+    // Check if no data is found after filtering
+    if (filteredJobs.length === 0) {
+      setNoDataFound(true);
+    } else {
+      setNoDataFound(false);
+    }
   };
 
   return (
@@ -175,17 +251,263 @@ export default function JobListings() {
         </div>
 
         <div className="Job_container_Jobslistings">
+          <div className="MobileFilter_section">
+            <details>
+              <summary>Filter</summary>
+              <button
+                onClick={clearSalaryFilter}
+                className="clear_filter_button"
+              >
+                Clear Filter
+              </button>
+              <div className="Filtering_box">
+                <p>Sorting by date</p>
+                <button onClick={handleSort}>
+                  {isAscending ? "Ascending" : "Descending"}
+                </button>
+              </div>
+              <div className="Filtering_box">
+                <p>Salary filter</p>
+
+                <button
+                  className={`salary-filter-button ${
+                    activeSalaryFilter === "0-2" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handleSalaryFilter("0-2")}
+                >
+                  0-2
+                </button>
+                <button
+                  className={`salary-filter-button ${
+                    activeSalaryFilter === "0-5" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handleSalaryFilter("0-5")}
+                >
+                  0-5
+                </button>
+                <button
+                  className={`salary-filter-button ${
+                    activeSalaryFilter === "5-7" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handleSalaryFilter("5-7")}
+                >
+                  5-7
+                </button>
+                <button
+                  className={`salary-filter-button ${
+                    activeSalaryFilter === "5-10" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handleSalaryFilter("5-10")}
+                >
+                  5-10
+                </button>
+                <button
+                  className={`salary-filter-button ${
+                    activeSalaryFilter === "10-15" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handleSalaryFilter("10-15")}
+                >
+                  10-15
+                </button>
+              </div>
+              <div className="Filtering_box">
+                <p>Filter by place</p>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Remote" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Remote")}
+                >
+                  Remote
+                </button>
+
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Delhi" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Delhi")}
+                >
+                  Delhi
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Bangalore" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Bangalore")}
+                >
+                  Bangalore
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Kolkata" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Kolkata")}
+                >
+                  Kolkata
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Mumbai" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Mumbai")}
+                >
+                  Mumbai
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Noida" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Noida")}
+                >
+                  Noida
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Chennai" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Chennai")}
+                >
+                  Chennai
+                </button>
+                <button
+                  className={`place-filter-button ${
+                    activePlaceFilter === "Bhubaneswar" ? "active-filter" : ""
+                  }`}
+                  onClick={() => handlePlaceFilter("Bhubaneswar")}
+                >
+                  Bhubaneswar
+                </button>
+              </div>
+            </details>
+          </div>
           <div className="job_conatiner_child1">
-            <div>
+            <button onClick={clearSalaryFilter} className="clear_filter_button">
+              Clear Filter
+            </button>
+            <div className="Filtering_box">
               <p>Sorting by date</p>
               <button onClick={handleSort}>
                 {isAscending ? "Ascending" : "Descending"}
               </button>
             </div>
+            <div className="Filtering_box">
+              <p>Salary filter</p>
+
+              <button
+                className={`salary-filter-button ${
+                  activeSalaryFilter === "0-2" ? "active-filter" : ""
+                }`}
+                onClick={() => handleSalaryFilter("0-2")}
+              >
+                0-2
+              </button>
+              <button
+                className={`salary-filter-button ${
+                  activeSalaryFilter === "0-5" ? "active-filter" : ""
+                }`}
+                onClick={() => handleSalaryFilter("0-5")}
+              >
+                0-5
+              </button>
+              <button
+                className={`salary-filter-button ${
+                  activeSalaryFilter === "5-7" ? "active-filter" : ""
+                }`}
+                onClick={() => handleSalaryFilter("5-7")}
+              >
+                5-7
+              </button>
+              <button
+                className={`salary-filter-button ${
+                  activeSalaryFilter === "5-10" ? "active-filter" : ""
+                }`}
+                onClick={() => handleSalaryFilter("5-10")}
+              >
+                5-10
+              </button>
+              <button
+                className={`salary-filter-button ${
+                  activeSalaryFilter === "10-15" ? "active-filter" : ""
+                }`}
+                onClick={() => handleSalaryFilter("10-15")}
+              >
+                10-15
+              </button>
+            </div>
+            <div className="Filtering_box">
+              <p>Filter by place</p>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Remote" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Remote")}
+              >
+                Remote
+              </button>
+
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Delhi" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Delhi")}
+              >
+                Delhi
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Bangalore" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Bangalore")}
+              >
+                Bangalore
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Kolkata" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Kolkata")}
+              >
+                Kolkata
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Mumbai" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Mumbai")}
+              >
+                Mumbai
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Noida" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Noida")}
+              >
+                Noida
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Chennai" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Chennai")}
+              >
+                Chennai
+              </button>
+              <button
+                className={`place-filter-button ${
+                  activePlaceFilter === "Bhubaneswar" ? "active-filter" : ""
+                }`}
+                onClick={() => handlePlaceFilter("Bhubaneswar")}
+              >
+                Bhubaneswar
+              </button>
+            </div>
           </div>
           <div className="job_conatiner_child2">
-            {data &&
-              data.map((ele) => (
+            {noDataFound ? (
+              <p>No jobs found for the selected filter.</p>
+            ) : (
+              filteredData.map((ele) => (
                 <div
                   key={ele._id}
                   className="job_cards"
@@ -217,7 +539,7 @@ export default function JobListings() {
                     <GoNote size={30} className="third_container_sticker" />
                     <p>
                       {`${ele.what_looking_in_collegue[1]}.
-                        ${ele.what_looking_in_collegue[2]} & ${ele.what_looking_in_collegue[3]}`}
+    ${ele.what_looking_in_collegue[2]} & ${ele.what_looking_in_collegue[3]}`}
                     </p>
                   </div>
 
@@ -242,7 +564,8 @@ export default function JobListings() {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+            )}
           </div>
         </div>
       </div>

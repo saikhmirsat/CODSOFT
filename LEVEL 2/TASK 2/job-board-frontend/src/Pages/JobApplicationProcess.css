@@ -47,3 +47,31 @@
   border: none;
   padding: 3px 10px;
 }
+
+@media (max-width: 1180px) {
+  .Job_application_page_main_container {
+    width: 100%;
+    /* border: 1px solid red; */
+  }
+  .job_application_con {
+    width: 90%;
+  }
+  .Itme_box_status {
+    align-items: center;
+  }
+}
+@media (max-width: 480px) {
+  .Itme_box_status p {
+    font-size: 10px;
+  }
+
+  .Itme_box_status button {
+    font-size: 10px;
+  }
+  .Header_table_of_status p {
+    font-size: 10px;
+  }
+  .Itme_box_status {
+    align-items: center;
+  }
+}

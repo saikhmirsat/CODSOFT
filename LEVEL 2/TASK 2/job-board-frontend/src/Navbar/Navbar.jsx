@@ -34,7 +34,7 @@ export default function Navbar() {
     <div className="Navbar">
       <div className="Navbar_normal">
         <div className="Nav_logo_con">
-          <h2>Logo</h2>
+          <h2>CODSOFT</h2>
         </div>
         <div className="Nav_right_items">
           <Link to="/joblistings">Jobs</Link>
@@ -98,14 +98,14 @@ export default function Navbar() {
           )}
           {isAuthEmp === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/employee">
-              Dashboard
+              Dashboard Emp
             </Link>
           ) : (
             ""
           )}
           {isAuthCan === "true" ? (
             <Link onClick={closeHamburgerFunc} to="/candidate">
-              Dashboard
+              Dashboard Can
             </Link>
           ) : (
             ""

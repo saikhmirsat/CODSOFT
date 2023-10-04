@@ -11,7 +11,7 @@ export default function EmployeeDashboard() {
 
   const navigate = useNavigate();
 
-  const LoginFunc = () => {
+  const LogoutFunc = () => {
     Cookies.remove("EmployeeToken");
     Cookies.remove("userData");
     Cookies.remove("isAuthCan");
@@ -22,7 +22,7 @@ export default function EmployeeDashboard() {
 
   const user = JSON.parse(Cookies.get("userData"));
   const id = user._id;
-  console.log({ id });
+  console.log({ user });
 
   const getData = async () => {
     try {
@@ -78,8 +78,22 @@ export default function EmployeeDashboard() {
 
   return (
     <div className="Employe_dashboard_main_container">
-      EmployeeDashboard
-      <button onClick={LoginFunc}>Logout</button>
+      <div className="Profile_container_dashboard">
+        <div>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1uO9yM0Gp_F2e2oAGZT5dBwsG8yf-WhG-KWYAJVEgsTSx0VAJHUmEv7pO8u9Y8CsXZNM&usqp=CAU"
+            alt=""
+          />
+        </div>
+        <div style={{ textAlignLast: "left", lineHeight: "0.7cm" }}>
+          <h3>{user.name}</h3>
+          <p>{user.email}</p>
+          <p>{user.mobile}</p>
+          <p>Role : {user.role}</p>
+          <button onClick={LogoutFunc}>Logout</button>
+        </div>
+      </div>
+
       <h1>Candidates apply</h1>
       <div className="employe_container">
         <div className="Employ_table_header">

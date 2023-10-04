@@ -8,7 +8,12 @@ export default function Home() {
     <div className="home_main_container">
       <div className="home_banner">
         <img
+          className="desktop_img"
           src="https://images.sampleforms.com/wp-content/uploads/2017/04/Termination-Clearance-Form.jpg"
+          alt=""
+        />
+        <img className="mobile_img"
+          src="https://thumbs.dreamstime.com/b/businesswoman-wearing-headset-working-busy-office-smiling-44096992.jpg"
           alt=""
         />
         <div>
