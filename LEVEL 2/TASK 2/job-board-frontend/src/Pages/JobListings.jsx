@@ -40,7 +40,7 @@ export default function JobListings() {
 
   const GetData = async () => {
     try {
-      await fetch(`http://localhost:8080/jobs`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/jobs`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -184,7 +184,7 @@ export default function JobListings() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/jobs/jobdata?search=${searchQuery}`,
+        `https://bright-worm-fedora.cyclic.app/jobs/jobdata?search=${searchQuery}`,
         {
           method: "GET",
           headers: {

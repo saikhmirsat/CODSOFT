@@ -31,7 +31,7 @@ export default function EmployeeDashboard() {
   const getData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8080/jobapplications/${id}`,
+        `https://bright-worm-fedora.cyclic.app/jobapplications/${id}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -57,7 +57,7 @@ export default function EmployeeDashboard() {
 
   const jubStatusFunc = async (id) => {
     try {
-      await fetch(`http://localhost:8080/jobapplications/update/${id}`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/jobapplications/update/${id}`, {
         method: "PATCH",
         body: JSON.stringify({ status: true }),
         headers: {

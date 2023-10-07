@@ -269,7 +269,7 @@ export default function EmployeePostJobs() {
     console.log(obj);
 
     try {
-      await fetch(`http://localhost:8080/jobs/post`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/jobs/post`, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -300,7 +300,7 @@ export default function EmployeePostJobs() {
     const id = userid._id;
 
     try {
-      await fetch(`http://localhost:8080/jobs/user/${id}`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/jobs/user/${id}`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",

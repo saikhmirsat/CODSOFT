@@ -34,7 +34,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/jobs/jobdata?search=${searchQuery}`,
+        `https://bright-worm-fedora.cyclic.app/jobs/jobdata?search=${searchQuery}`,
         {
           method: "GET",
           headers: {

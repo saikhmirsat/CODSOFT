@@ -35,7 +35,7 @@ export default function RegisterLogin() {
     };
 
     try {
-      await fetch(`http://localhost:8080/users/register`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/users/register`, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
@@ -71,7 +71,7 @@ export default function RegisterLogin() {
     };
 
     try {
-      await fetch(`http://localhost:8080/users/login`, {
+      await fetch(`https://bright-worm-fedora.cyclic.app/users/login`, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {

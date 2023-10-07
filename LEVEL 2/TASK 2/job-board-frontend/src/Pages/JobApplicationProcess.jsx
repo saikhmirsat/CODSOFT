@@ -13,7 +13,7 @@ export default function JobApplicationProcess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/jobapplications/application/${userData._id}`, {
+    fetch(`https://bright-worm-fedora.cyclic.app/jobapplications/application/${userData._id}`, {
       method: "GET",
       headers: {
         "Content-type": "application/json",
