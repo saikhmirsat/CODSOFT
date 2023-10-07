@@ -5,6 +5,7 @@ import { ImGooglePlus3 } from "react-icons/im";
 import { BiLogoLinkedin } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 export default function RegisterLogin() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -48,13 +49,17 @@ export default function RegisterLogin() {
             alert(res.msg);
             setIsSignUp(false);
           } else {
-            alert(res.msg);
+            toast.success(res.msg);
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          toast.error(err);
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
-      alert(err);
+
+      toast.error(err);
     }
   };
 
@@ -102,15 +107,16 @@ export default function RegisterLogin() {
               window.location.reload();
             }
           } else {
-            alert(res.msg);
+            toast.success(res.msg);
           }
         })
         .catch((err) => {
           console.log(err);
+          toast.success(err);
         });
     } catch (err) {
       console.log(err);
-      alert(err);
+      toast.success(err);
     }
   };
 

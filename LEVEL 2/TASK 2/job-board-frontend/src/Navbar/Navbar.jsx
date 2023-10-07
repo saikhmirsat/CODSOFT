@@ -34,7 +34,7 @@ export default function Navbar() {
     <div className="Navbar">
       <div className="Navbar_normal">
         <div className="Nav_logo_con">
-          <h2>CODSOFT</h2>
+          <Link to="/">CODSOFT</Link>
         </div>
         <div className="Nav_right_items">
           <Link to="/joblistings">Jobs</Link>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import "./EmployeeDashboard.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function EmployeeDashboard() {
   const [data, setData] = useState([]);
@@ -12,12 +13,15 @@ export default function EmployeeDashboard() {
   const navigate = useNavigate();
 
   const LogoutFunc = () => {
-    Cookies.remove("EmployeeToken");
-    Cookies.remove("userData");
-    Cookies.remove("isAuthCan");
-    Cookies.remove("isAuthEmp");
-    navigate("/");
-    window.location.reload();
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      Cookies.remove("EmployeeToken");
+      Cookies.remove("userData");
+      Cookies.remove("isAuthCan");
+      Cookies.remove("isAuthEmp");
+      navigate("/");
+      window.location.reload();
+    }
   };
 
   const user = JSON.parse(Cookies.get("userData"));
@@ -53,24 +57,21 @@ export default function EmployeeDashboard() {
 
   const jubStatusFunc = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/jobapplications/update/${id}`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ status: true }),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
-
-      if (response.ok) {
-        console.log(await response.json());
-        getData(); // Refresh data after updating status
-      } else {
-        console.log("Error updating status");
-      }
+      await fetch(`http://localhost:8080/jobapplications/update/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status: true }),
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log({ res });
+          alert(res.message);
+          getData();
+        })
+        .catch((err) => console.log(err));
     } catch (err) {
       console.log(err);
     }

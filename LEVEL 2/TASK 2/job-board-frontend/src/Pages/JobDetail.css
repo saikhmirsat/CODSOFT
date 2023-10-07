@@ -1,5 +1,6 @@
+
+
 .job_details_main_container {
-  border: 1px solid red;
   padding: 100px;
   display: flex;
   flex-direction: column;
@@ -114,6 +115,7 @@
 /* .Apply_button_Hide {
   display: none;
 } */
+
 .Apply_button_jobs {
   /* display: contents; */
   border: none;

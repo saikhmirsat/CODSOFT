@@ -8,8 +8,8 @@ import JobApplicationProcess from "../Pages/JobApplicationProcess";
 import CandidateDashboard from "../Pages/CandidateDashboard";
 import EmployeeDashboard from "../Pages/EmployeeDashboard";
 import EmployeePostJobs from "../Pages/EmployeePostJobs";
-import PrivateRouteForEmployee from "./PrivateRouteForEmployee";
-import PrivateRouteForIsAuthCandidate from "./PrivateRouteForIsAuthCandidate";
+import PrivateRouteEmp from "./PrivateEmp";
+import PrivateRouteCan from "./PrivateRouteCan";
 
 export default function Allroutes() {
   const isAuth = localStorage.getItem("isAuth");
@@ -21,11 +21,36 @@ export default function Allroutes() {
       <Route path="/jobdetail/:id" element={<JobDetail />}></Route>
       <Route
         path="/jobapplications"
-        element={<JobApplicationProcess />}
+        element={
+          <PrivateRouteCan>
+            <JobApplicationProcess />
+          </PrivateRouteCan>
+        }
       ></Route>
-      <Route path="/candidate" element={<CandidateDashboard />}></Route>
-      <Route path="/employee" element={<EmployeeDashboard />}></Route>
-      <Route path="/employeejobpost" element={<EmployeePostJobs />}></Route>
+      <Route
+        path="/candidate"
+        element={
+          <PrivateRouteCan>
+            <CandidateDashboard />
+          </PrivateRouteCan>
+        }
+      ></Route>
+      <Route
+        path="/employee"
+        element={
+          <PrivateRouteEmp>
+            <EmployeeDashboard />
+          </PrivateRouteEmp>
+        }
+      ></Route>
+      <Route
+        path="/employeejobpost"
+        element={
+          <PrivateRouteEmp>
+            <EmployeePostJobs />
+          </PrivateRouteEmp>
+        }
+      ></Route>
     </Routes>
   );
 }

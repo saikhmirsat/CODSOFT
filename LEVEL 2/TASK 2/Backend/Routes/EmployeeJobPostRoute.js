@@ -5,6 +5,7 @@ const { EmployeeJobPostModel } = require('../Models/EmployeeJobPost.model')
 const EmployeeJobPostRouter = express.Router()
 
 EmployeeJobPostRouter.get('/', async (req, res) => {
+
     try {
         const data = await EmployeeJobPostModel.find()
         res.send(data)
@@ -12,6 +13,52 @@ EmployeeJobPostRouter.get('/', async (req, res) => {
         console.log(err)
     }
 })
+EmployeeJobPostRouter.get('/jobdata', async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 5;
+        const search = req.query.search || "";
+        let sort = req.query.sort || "JobPostDate";
+
+        req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+        let sortBy = {};
+        if (sort[1]) {
+            sortBy[sort[0]] = sort[1];
+        } else {
+            sortBy[sort[0]] = 'asc';
+        }
+
+        const query = {
+            $or: [
+                { jobTitle: { $regex: search, $options: "i" } },
+                { companyName: { $regex: search, $options: "i" } }
+            ]
+        };
+
+        const jobs = await EmployeeJobPostModel.find(query)
+            .sort(sortBy)
+            .skip(page * limit)
+            .limit(limit);
+
+        const total = await EmployeeJobPostModel.countDocuments(query);
+
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            limit,
+            jobs
+        };
+
+        res.send(response);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ error: true, message: 'An error occurred' });
+    }
+});
+
+
+
 EmployeeJobPostRouter.get('/:_id', async (req, res) => {
     const { _id } = req.params;
     try {
@@ -49,6 +96,8 @@ EmployeeJobPostRouter.post('/post', async (req, res) => {
         console.log(err)
     }
 })
+
+
 
 
 

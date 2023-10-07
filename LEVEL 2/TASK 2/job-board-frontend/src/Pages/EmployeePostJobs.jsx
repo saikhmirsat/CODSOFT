@@ -12,6 +12,7 @@ import { GoLocation, GoNote } from "react-icons/go";
 import { GrSystem, GrSettingsOption } from "react-icons/gr";
 import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
 import { BsGraphUpArrow, BsBoxSeam, BsRocketTakeoff } from "react-icons/bs";
+import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 
@@ -279,10 +280,11 @@ export default function EmployeePostJobs() {
         .then((res) => res.json())
         .then((res) => {
           if (res.success == true) {
-            alert(res.msg);
+            toast.success(res.msg);
+            // alert(res.msg);
             getData();
           } else {
-            alert(res.msg);
+            toast.warning(res.msg);
           }
           console.log(res);
         })

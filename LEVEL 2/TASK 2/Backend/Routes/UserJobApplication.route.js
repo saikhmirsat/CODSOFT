@@ -1,5 +1,6 @@
 const express = require('express')
 
+
 const { UserJobApplicationModel } = require('../Models/UserJobApplication.model')
 
 const JobApplicationRouter = express.Router()
@@ -88,7 +89,7 @@ JobApplicationRouter.patch("/update/:id", async (req, res) => {
             return res.status(404).json({ message: "Job application status not found" });
         }
 
-        res.json({ message: "Updated", success: true, data: updatedApplicationStatus });
+        res.json({ message: "Job Approved", success: true, data: updatedApplicationStatus });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });

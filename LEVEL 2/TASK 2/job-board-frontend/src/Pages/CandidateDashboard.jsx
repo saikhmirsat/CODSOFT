@@ -12,7 +12,8 @@ export default function CandidateDashboard() {
     Cookies.remove("userData");
     Cookies.remove("isAuthCan");
     Cookies.remove("isAuthEmp");
-    window.location.reload();
+    Cookies.remove("CandidateToken");
+
     navigate("/");
     window.location.reload();
   };

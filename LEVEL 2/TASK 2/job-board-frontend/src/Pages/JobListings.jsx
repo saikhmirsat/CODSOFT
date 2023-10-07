@@ -25,9 +25,14 @@ export default function JobListings() {
   const [activePlaceFilter, setActivePlaceFilter] = useState(null); // Default active place filter is null
   const [activeSalaryFilter, setActiveSalaryFilter] = useState(null); // Default active salary filter is null
 
+  const [searchQuery, setSearchQuery] = useState(""); // Add search query state
+  const [searchResults, setSearchResults] = useState([]); // Add search results state
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const token = Cookies.get("CandidateToken") || Cookies.get("EmployeeToken");
+  console.log({ val: !token });
 
   useEffect(() => {
     GetData();
@@ -39,7 +44,9 @@ export default function JobListings() {
         method: "GET",
         headers: {
           "Content-type": "application/json",
-          Authorization: token,
+          Authorization:
+            token ||
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NTFkYmM4ZjdjMjM0Mjk2MGQxZjk2ZjAiLCJpYXQiOjE2OTY0NDc2NDB9.mYDPAAn4rb-i10EQPiZtl2ol_k7NGkt5LJZJfNXawWk",
         },
       })
         .then((res) => res.json())
@@ -77,7 +84,11 @@ export default function JobListings() {
   }
 
   const GotoDetailPageFunc = (id) => {
-    navigate(`/jobdetail/${id}`);
+    if (token) {
+      navigate(`/jobdetail/${id}`);
+    } else {
+      alert("Please Login First");
+    }
   };
 
   // Filtering function
@@ -168,6 +179,37 @@ export default function JobListings() {
     }
   };
 
+  const handleSearchSubmit = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/jobs/jobdata?search=${searchQuery}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const searchData = await response.json();
+        setFilteredData(searchData.jobs); // Update filteredData state with search results
+        setSearchResults(searchData.jobs.length > 0); // Update searchResultsFound based on search results
+      } else {
+        console.error("Error fetching search results:", response.statusText);
+        setSearchResults(false); // No search results found
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+      setSearchResults(false); // No search results found
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="Joblisting_main_container">
       <div>
@@ -175,8 +217,13 @@ export default function JobListings() {
         <p>5 lakh+ jobs for you to explore</p>
         <div className="Joblisting_search_box">
           <BiSearch size="30px" className="Search_icon_joblisting" />
-          <input type="text" placeholder="Search your dream jobs" />
-          <button>Search</button>
+          <input
+            type="text"
+            placeholder="Search your dream jobs"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button onClick={handleSearchSubmit}>Search</button>
         </div>
         <div className="filter_section_joblisting">
           <div
@@ -504,8 +551,8 @@ export default function JobListings() {
             </div>
           </div>
           <div className="job_conatiner_child2">
-            {noDataFound ? (
-              <p>No jobs found for the selected filter.</p>
+            {noDataFound || !searchResults ? (
+              <p>No jobs found </p>
             ) : (
               filteredData.map((ele) => (
                 <div
