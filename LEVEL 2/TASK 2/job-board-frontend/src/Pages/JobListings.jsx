@@ -51,6 +51,8 @@ export default function JobListings() {
       })
         .then((res) => res.json())
         .then((res) => {
+          res.sort((a, b) => new Date(b.JobPostDate) - new Date(a.JobPostDate)); // Sort the data by date
+
           setData(res);
           setFilteredData(res); // Initialize filteredData with all data
           console.log(res);
@@ -101,7 +103,7 @@ export default function JobListings() {
   // Sorting function
   const handleSort = () => {
     setIsAscending(!isAscending);
-    const sortedData = [...data];
+    const sortedData = [...filteredData]; // Sort the filtered data
     sortedData.sort((a, b) => {
       if (isAscending) {
         return new Date(a.JobPostDate) - new Date(b.JobPostDate);
@@ -109,7 +111,7 @@ export default function JobListings() {
         return new Date(b.JobPostDate) - new Date(a.JobPostDate);
       }
     });
-    setData(sortedData);
+    setFilteredData(sortedData); // Update filteredData with the sorted data
   };
 
   const handleSalaryFilter = (salaryRange) => {
