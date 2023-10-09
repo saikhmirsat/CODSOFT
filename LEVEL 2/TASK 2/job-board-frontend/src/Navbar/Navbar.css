@@ -76,7 +76,11 @@
     border-bottom-left-radius: 10px;
     z-index: 4;
   }
-
+  .mobile_nav_container a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
   .mobile_nav_items a {
     border-bottom: 1px solid grey;
     text-decoration: none;

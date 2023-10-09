@@ -80,7 +80,7 @@ export default function Navbar() {
       <div className="Navbar_mobile">
         <div className="mobile_nav_container">
           <div>
-            <Link to="/">Logo</Link>
+            <Link to="/">CODSOFT</Link>
           </div>
           <div>
             <button onClick={toggleHamburger}>
