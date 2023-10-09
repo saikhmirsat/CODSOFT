@@ -5,7 +5,7 @@ import { ImGooglePlus3 } from "react-icons/im";
 import { BiLogoLinkedin } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function RegisterLogin() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -46,10 +46,12 @@ export default function RegisterLogin() {
         .then((res) => {
           console.log(res);
           if (res.success === true) {
-            alert(res.msg);
-            setIsSignUp(false);
-          } else {
             toast.success(res.msg);
+            setIsSignUp(false);
+            setLoginForm(true);
+          } else {
+            // alert(res.msg);
+            toast.warning(res.msg);
           }
         })
         .catch((err) => {
@@ -94,6 +96,7 @@ export default function RegisterLogin() {
               Cookies.set("isAuthEmp", false);
               Cookies.set("CandidateToken", token);
               Cookies.set("userData", JSON.stringify(res.user[0]));
+
               window.location.reload();
             }
             if (res.user[0].role == "employee") {
@@ -104,19 +107,20 @@ export default function RegisterLogin() {
               Cookies.set("isAuthCan", false);
               Cookies.set("EmployeeToken", token);
               Cookies.set("userData", JSON.stringify(res.user[0]));
+
               window.location.reload();
             }
           } else {
-            toast.success(res.msg);
+            toast.error(res.msg);
           }
         })
         .catch((err) => {
           console.log(err);
-          toast.success(err);
+          toast.error(err);
         });
     } catch (err) {
       console.log(err);
-      toast.success(err);
+      toast.error(err);
     }
   };
 
@@ -382,6 +386,7 @@ export default function RegisterLogin() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

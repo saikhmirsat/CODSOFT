@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Home.css";
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import Cookies from "js-cookie";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SearchResultItem({ result, onClick }) {
   return (
@@ -55,7 +58,14 @@ export default function Home() {
   };
 
   const GotoDetailPageFunc = (id) => {
-    navigate(`/jobdetail/${id}`);
+    const isAuth = Cookies.get("isAuthCan") || Cookies.get("isAuthEmp");
+    console.log(!isAuth);
+    if (!isAuth) {
+      alert("Please login first");
+      navigate("/registerandlogin");
+    } else {
+      navigate(`/jobdetail/${id}`);
+    }
   };
 
   return (

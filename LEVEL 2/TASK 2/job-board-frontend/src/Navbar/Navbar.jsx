@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCrossCircled } from "react-icons/rx";
 import logo from "../Assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function Navbar() {
@@ -12,14 +12,29 @@ export default function Navbar() {
   const isAuthCan = Cookies.get("isAuthCan");
   const isAuthEmp = Cookies.get("isAuthEmp");
 
-  const LogoutFuncMobileCan = () => {
-    Cookies.set("isAuthCan", false);
+  const navigate = useNavigate();
 
-    window.location.reload();
+  const LogoutFuncMobileCan = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      Cookies.remove("EmployeeToken");
+      Cookies.remove("userData");
+      Cookies.remove("isAuthCan");
+      Cookies.remove("isAuthEmp");
+      navigate("/registerandlogin");
+      window.location.reload();
+    }
   };
   const LogoutFuncMobileEmp = () => {
-    Cookies.set("isAuthEmp", false);
-    window.location.reload();
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+    if (confirmLogout) {
+      Cookies.remove("EmployeeToken");
+      Cookies.remove("userData");
+      Cookies.remove("isAuthCan");
+      Cookies.remove("isAuthEmp");
+      navigate("/registerandlogin");
+      window.location.reload();
+    }
   };
 
   const toggleHamburger = () => {
@@ -65,7 +80,7 @@ export default function Navbar() {
       <div className="Navbar_mobile">
         <div className="mobile_nav_container">
           <div>
-            <h2>Logo</h2>
+            <Link to="/">Logo</Link>
           </div>
           <div>
             <button onClick={toggleHamburger}>
