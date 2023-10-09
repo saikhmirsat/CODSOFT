@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./JobDetail.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  BiSearch,
-  BiRightArrowAlt,
-  BiSolidBuildingHouse,
-} from "react-icons/bi";
-import { AiOutlineHome, AiOutlineSave } from "react-icons/ai";
-import { SlGraph } from "react-icons/sl";
+
+import { AiOutlineSave } from "react-icons/ai";
+
 import { GoLocation, GoNote } from "react-icons/go";
-import { GrSystem, GrSettingsOption } from "react-icons/gr";
-import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
+
+import { FaRupeeSign, FaToolbox } from "react-icons/fa";
 
 export default function JobDetail() {
   const [jobData, setJobData] = useState({});
@@ -32,8 +28,6 @@ export default function JobDetail() {
   const userData = JSON.parse(Cookies.get("userData"));
   console.log({ userData });
   const { id } = useParams();
-
-  const navigate = useNavigate();
 
   function customFormatDistanceToNow(date) {
     const now = new Date();
@@ -95,14 +89,17 @@ export default function JobDetail() {
       };
       console.log(obj);
       try {
-        await fetch(`https://bright-worm-fedora.cyclic.app/jobapplications/apply`, {
-          method: "POST",
-          body: JSON.stringify(obj),
-          headers: {
-            "Content-type": "application/json",
-            Authorization: token,
-          },
-        })
+        await fetch(
+          `https://bright-worm-fedora.cyclic.app/jobapplications/apply`,
+          {
+            method: "POST",
+            body: JSON.stringify(obj),
+            headers: {
+              "Content-type": "application/json",
+              Authorization: token,
+            },
+          }
+        )
           .then((res) => res.json())
           .then((res) => {
             toast.success(res.msg);
@@ -113,12 +110,6 @@ export default function JobDetail() {
       }
     } else {
       toast.error("Only candidates can apply!");
-      // toast.warning("This is a warning notification.", {
-      //   style: {
-      //     backgroundColor: "red",
-      //     color: "white", // Optional: Change text color
-      //   },
-      // });
     }
   };
 

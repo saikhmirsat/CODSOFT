@@ -57,14 +57,17 @@ export default function EmployeeDashboard() {
 
   const jubStatusFunc = async (id) => {
     try {
-      await fetch(`https://bright-worm-fedora.cyclic.app/jobapplications/update/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ status: true }),
-        headers: {
-          "Content-type": "application/json",
-          Authorization: token,
-        },
-      })
+      await fetch(
+        `https://bright-worm-fedora.cyclic.app/jobapplications/update/${id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ status: true }),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: token,
+          },
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           console.log({ res });
@@ -99,16 +102,12 @@ export default function EmployeeDashboard() {
       <div className="employe_container">
         <div className="Employ_table_header">
           <p>Candidate Name</p>
-
-          {/* Render user name here */}
           <p>Job Role</p>
           <p>Status</p>
         </div>
         {data.map((ele) => (
           <div key={ele._id} className="employe_table_data">
             <p>{ele.candidateName}</p>
-
-            {/* Render user name here */}
             <p> {ele.jobData.jobTitle}</p>
             <p>
               <button

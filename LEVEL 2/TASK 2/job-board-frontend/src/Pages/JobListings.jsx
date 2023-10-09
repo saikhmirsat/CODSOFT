@@ -16,17 +16,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function JobListings() {
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState("All"); // Default filter is "All"
+  const [filter, setFilter] = useState("All");
   const [isAscending, setIsAscending] = useState(true);
   const [selectedSalaryFilter, setSelectedSalaryFilter] = useState(null);
-  const [filteredData, setFilteredData] = useState([]); // Store filtered data
+  const [filteredData, setFilteredData] = useState([]);
   const [noDataFound, setNoDataFound] = useState(false);
-  const [selectedPlaceFilter, setSelectedPlaceFilter] = useState(null); // Track selected place filter
-  const [activePlaceFilter, setActivePlaceFilter] = useState(null); // Default active place filter is null
-  const [activeSalaryFilter, setActiveSalaryFilter] = useState(null); // Default active salary filter is null
+  const [selectedPlaceFilter, setSelectedPlaceFilter] = useState(null);
+  const [activePlaceFilter, setActivePlaceFilter] = useState(null);
+  const [activeSalaryFilter, setActiveSalaryFilter] = useState(null);
 
-  const [searchQuery, setSearchQuery] = useState(""); // Add search query state
-  const [searchResults, setSearchResults] = useState([]); // Add search results state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -51,10 +51,10 @@ export default function JobListings() {
       })
         .then((res) => res.json())
         .then((res) => {
-          res.sort((a, b) => new Date(b.JobPostDate) - new Date(a.JobPostDate)); // Sort the data by date
+          res.sort((a, b) => new Date(b.JobPostDate) - new Date(a.JobPostDate));
 
           setData(res);
-          setFilteredData(res); // Initialize filteredData with all data
+          setFilteredData(res);
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -103,7 +103,7 @@ export default function JobListings() {
   // Sorting function
   const handleSort = () => {
     setIsAscending(!isAscending);
-    const sortedData = [...filteredData]; // Sort the filtered data
+    const sortedData = [...filteredData];
     sortedData.sort((a, b) => {
       if (isAscending) {
         return new Date(a.JobPostDate) - new Date(b.JobPostDate);
@@ -111,13 +111,12 @@ export default function JobListings() {
         return new Date(b.JobPostDate) - new Date(a.JobPostDate);
       }
     });
-    setFilteredData(sortedData); // Update filteredData with the sorted data
+    setFilteredData(sortedData);
   };
 
   const handleSalaryFilter = (salaryRange) => {
     setSelectedSalaryFilter(salaryRange);
 
-    // Filter the jobs based on the selected salary range
     const filteredJobs = data.filter((job) => {
       const salary = parseInt(job.salary);
       switch (salaryRange) {
@@ -132,17 +131,16 @@ export default function JobListings() {
         case "10-15":
           return salary >= 10 && salary <= 15;
         default:
-          return true; // No filter selected, return all jobs
+          return true;
       }
     });
 
     setActivePlaceFilter(null);
 
     setFilteredData(filteredJobs);
-    // Set the active salary filter
+
     setActiveSalaryFilter(salaryRange);
 
-    // Check if no data is found after filtering
     if (filteredJobs.length === 0) {
       setNoDataFound(true);
     } else {
@@ -152,28 +150,24 @@ export default function JobListings() {
 
   const clearSalaryFilter = () => {
     setSelectedSalaryFilter(null);
-    setFilteredData(data); // Reset filtered data to the original data
-    setNoDataFound(false); // Reset the "no data found" flag
+    setFilteredData(data);
+    setNoDataFound(false);
     setActivePlaceFilter(null);
     setActiveSalaryFilter(null);
   };
 
   const handlePlaceFilter = (place) => {
-    // Filter the jobs based on the selected place
     const filteredJobs = data.filter((job) => {
       return job.location === place;
     });
 
     setSelectedPlaceFilter(place);
 
-    // Update the filteredData state with the filtered jobs
     setFilteredData(filteredJobs);
 
-    // Set the active place filter
     setActivePlaceFilter(place);
     setActiveSalaryFilter(null);
 
-    // Check if no data is found after filtering
     if (filteredJobs.length === 0) {
       setNoDataFound(true);
     } else {
@@ -198,15 +192,15 @@ export default function JobListings() {
 
       if (response.ok) {
         const searchData = await response.json();
-        setFilteredData(searchData.jobs); // Update filteredData state with search results
-        setSearchResults(searchData.jobs.length > 0); // Update searchResultsFound based on search results
+        setFilteredData(searchData.jobs);
+        setSearchResults(searchData.jobs.length > 0);
       } else {
         console.error("Error fetching search results:", response.statusText);
-        setSearchResults(false); // No search results found
+        setSearchResults(false);
       }
     } catch (error) {
       console.error("Error fetching search results:", error);
-      setSearchResults(false); // No search results found
+      setSearchResults(false);
     } finally {
       setLoading(false);
     }

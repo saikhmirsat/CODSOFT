@@ -13,16 +13,19 @@ export default function JobApplicationProcess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://bright-worm-fedora.cyclic.app/jobapplications/application/${userData._id}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: token,
-      },
-    })
+    fetch(
+      `https://bright-worm-fedora.cyclic.app/jobapplications/application/${userData._id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: token,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res); // Log the entire response for inspection
+        console.log(res);
         setJobStatus(res);
       })
       .catch((error) => {

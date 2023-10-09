@@ -1,5 +1,4 @@
 .Employe_dashboard_main_container {
-  /* border: 1px solid red; */
 }
 
 .Profile_container_dashboard {
@@ -28,13 +27,11 @@
   border: 1px solid black;
 }
 .Profile_container_dashboard > div:nth-child(2) {
-  /* border: 1px solid red; */
   line-height: 0.7cm;
   text-align: left;
 }
 
 .employe_container {
-  /* border: 1px solid blue; */
   width: 80%;
   margin: auto;
   margin-top: 20px;
@@ -88,7 +85,6 @@
   .employe_table_data p {
     font-size: 10px;
     border: none;
-    /* border: 1px solid red; */
   }
   .employe_container .employe_table_data {
     border: 1px solid #ccc;

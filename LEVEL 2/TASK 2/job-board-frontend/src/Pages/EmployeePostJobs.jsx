@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./EmployeePostJobs.css";
 import Cookies from "js-cookie";
-import {
-  BiSearch,
-  BiRightArrowAlt,
-  BiSolidBuildingHouse,
-} from "react-icons/bi";
-import { AiOutlineHome, AiOutlineSave } from "react-icons/ai";
-import { SlGraph } from "react-icons/sl";
+
+import { AiOutlineSave } from "react-icons/ai";
+
 import { GoLocation, GoNote } from "react-icons/go";
-import { GrSystem, GrSettingsOption } from "react-icons/gr";
-import { FaRupeeSign, FaToolbox, FaSearchDollar } from "react-icons/fa";
-import { BsGraphUpArrow, BsBoxSeam, BsRocketTakeoff } from "react-icons/bs";
+
+import { FaRupeeSign, FaToolbox } from "react-icons/fa";
+
 import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
@@ -320,7 +316,7 @@ export default function EmployeePostJobs() {
   };
 
   useEffect(() => {
-    getData(); // Call getData when the component mounts
+    getData();
   }, []);
 
   return (
@@ -392,14 +388,7 @@ export default function EmployeePostJobs() {
             onChange={(e) => setVacancies(e.target.value)}
           />
         </div>
-        {/* <div>
-          <input
-            type="number"
-            placeholder="Applications"
-            value={applications}
-            onChange={(e) => setApplications(e.target.value)}
-          />
-        </div> */}
+        \
         <div className="JobDescription_inpu_div">
           {renderJobDescriptionFields()}
           <button onClick={addJobDescriptionField}>✚</button>
@@ -418,7 +407,6 @@ export default function EmployeePostJobs() {
         </div>
         <div className="Industry_type_div">
           {renderIndustryTypeOptions()}
-          {/* Optionally, include a text input for custom industry type */}
           <div className="Indestry_type_other_div_flex">
             <label>If Other:</label>
             <input
@@ -471,7 +459,7 @@ export default function EmployeePostJobs() {
         </div>
         <button onClick={SubmitFunc}>Submit</button>
       </div>
-      {/* =======this container im use in from job listing cards and alson i can change css in there================ */}
+
       <div className="jobpostpage_second_con">
         <h2>Your All Posting Jobs</h2>
         {jobsData
@@ -535,7 +523,6 @@ export default function EmployeePostJobs() {
               </div>
             ))
           : "no data"}
-        {/* =================================================end============== */}
       </div>
     </div>
   );
